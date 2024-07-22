@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - index des villes{% endblock %}
+
+{% block body %}
+    <h1>Liste des utilisateurs</h1>
+
+    <a href="{{ path('app.accueil') }}">Accueil</a>
+    <a href="{{ path('admin.user.create') }}">Créer un nouvel utilisateur</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Actions</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Téléphone</th>
+                <th>Photo</th>
+                <th>Permis de conduire</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <a href="{{ path('admin.user.edit', {'id': user.id}) }}">Modifier</a>
+                        <form method="post" action="{{ path('admin.user.delete', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');" style="display: inline;">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                            <button type="submit">Supprimer</button>
+                        </form>
+                    </td>
+                    {% if user.userInfos %}
+                        <td>{{ user.userInfos.firstName }}</td>
+                        <td>{{ user.userInfos.lastName }}</td>
+                        <td>{{ user.userInfos.phoneNumber }}</td>
+                        <td><img src="{{ asset('images/photo/' ~ user.userInfos.photoName) }}" alt="Photo de {{ user.userInfos.firstName }}" height="40px"></td>
+                        <td><embed src="{{ asset('images/driving_license/' ~ user.userInfos.drivingLicenseName) }}" alt="Permis de {{ user.userInfos.firstName }}" type="application/pdf" height="40px" width="40px" /></td>
+                    {% endif %}
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">Aucun utilisateur trouvé.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

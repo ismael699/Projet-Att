@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <div class="center">
+        {{ form_start(form) }}
+
+            {{ form_row(form.roles) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.password) }}
+            {{ form_row(form.siren) }}
+            {{ form_row(form.file) }}
+
+            <button type="submit" class="button btn-ok">Inscription</button>
+        {{ form_end(form) }}
+        <p class="petite-ligne">Vous avez un compte ? Cliquez <a href="{{ path('app.login') }}">ici</a></p>
+    </div>
+{% endblock %}

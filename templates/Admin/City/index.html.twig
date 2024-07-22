@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - index des villes{% endblock %}
+
+{% block body %}
+    <h1>Liste des villes</h1>
+
+    <a href="{{ path('app.accueil') }}">Accueil</a>
+    <a href="{{ path('admin.city.create') }}">Création d'une ville</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Code</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for city in cityes %}
+                <tr>
+                    <td>{{ city.name }}</td>
+                    <td>{{ city.code }}</td>
+                    <td>
+                        <a href="{{ path('admin.city.edit', {'id': city.id}) }}">Modifier</a>
+                        <form method="post" action="{{ path('admin.city.delete', {'id': city.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette ville ?')" style="display: inline;">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ city.id) }}">
+                            <button type="submit">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">Aucune ville trouvé.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

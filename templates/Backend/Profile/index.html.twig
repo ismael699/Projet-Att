@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile utilisateur{% endblock %}
+
+{% block body %}
+    <h1>Profile utilisateur</h1>
+
+    <a href="{{ path('app.accueil') }}">Accueil</a>
+
+    {% if not userInfos %}
+        <a href="{{ path('app.profile.create') }}">Créer le profile</a>
+    {% else %}
+        <a href="{{ path('app.profile.edit', {'id': userInfos.id}) }}">Modifier le profile</a>
+    {% endif %}
+
+    {% if userInfos %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Téléphone</th>
+                    <th>Photo</th>
+                    <th>Doc</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ userInfos.firstName }}</td>
+                    <td>{{ userInfos.lastName }}</td>
+                    <td>{{ userInfos.phoneNumber }}</td>
+                    <td><img src="{{ asset('images/photo/' ~ userInfos.photoName) }}" alt="Photo de {{ userInfos.firstName }}" height="40px"></td>
+                    <td><img src="{{ asset('images/driving_license/' ~ userInfos.drivingLicenseName) }}" alt="Permis de {{ userInfos.firstName }}" height="40px"></td>
+                </tr> 
+            </tbody>
+        </table>
+    {% else %}
+        <p>Veuillez remplir votre profile.</p>
+    {% endif %}
+{% endblock %}

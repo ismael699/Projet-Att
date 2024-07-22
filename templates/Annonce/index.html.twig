@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AnnonceController!{% endblock %}
+
+{% block body %}
+<h1>Liste des Annonces</h1>
+
+{{ form_start(form) }}
+    {{ form_row(form.lieu_depart) }}
+    {{ form_row(form.lieu_arrivee) }}
+    {{ form_row(form.date) }}
+    {{ form_row(form.service) }}
+    {{ form_row(form.search) }}
+{{ form_end(form) }}
+
+{% if annonces is not empty %}
+    <ul>
+        {% for annonce in annonces %}
+            <li>{{ annonce.title }} - {{ annonce.LieuDepart }} à {{ annonce.LieuArrivee}} le {{ annonce.date|date('d/m/Y') }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Aucune annonce trouvée.</p>
+{% endif %}
+{% endblock %}

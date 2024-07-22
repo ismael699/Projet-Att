@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <h1>Accueil</h1>
+    <ul>
+        <li><a href="{{ path('app.logout') }}">Déconnexion</a></li>
+        <li><a href="{{ path('app.profile.index') }}">Profil</a></li>
+        <li><a href="{{ path('app.annonce.index') }}">Liste des annonce</a></li>
+    </ul>
+    <ul>
+        <h2>Admin</h2>
+        <li><a href="{{ path('admin.user.index') }}">Index des users</a></li>
+        <li><a href="{{ path('admin.city.index') }}">Index des villes</a></li>
+        <li><a href="{{ path('admin.service.index') }}">Index des services</a></li>
+    </ul>
+    <ul>
+        <h2>Utilisateur</h2>
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CHAUFFEUR') %}
+            <li><a href="{{ path('app.annonce.create') }}">Créer une annonce</a></li>
+        {% endif %}   
+    </ul>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+    <div class="center">
+        <form action="{{ path('app.login') }}" method="post" class="form">
+            <img src="PHOTO-2024-06-04-10-06-44 copie.jpg" alt="Logo de l'entreprise." class="img-logo">
+                <input type="email" id="email" name="_username" value="{{ last_email }}" required autofocus placeholder="Email">
+                <input type="password" id="password" name="_password" required placeholder="Mot de passe">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <button class="button btn-ok">Connexion</button>
+        </form>
+        <p class="petite-ligne">Vous n'avez pas de compte ? Cliquez <a href="{{ path('app.register') }}">ici</a></p>
+    </div>
+{% endblock %}
