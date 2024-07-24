@@ -48,7 +48,7 @@ class UserInfos
     #[ORM\Column(type: "string", length: 255, nullable: true)]
     private ?string $drivingLicenseName = null;
 
-    #[ORM\OneToOne(mappedBy: 'UserInfos', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity:User::class, mappedBy: 'UserInfos', cascade: ['persist', 'remove'])]
     private ?User $user = null;
 
     public function __serialize(): array

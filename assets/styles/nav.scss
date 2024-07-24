@@ -1,0 +1,69 @@
+.margin-left {
+    margin-left: 70px;
+}
+
+.nav-index {
+    background-color: $secondary;
+    padding: 5px 5px;
+    border-radius: 10px;
+}
+
+nav {
+    background-color: $primary;
+
+    position: fixed; /* prend que la largeur de la liste en couleur */
+    height: 250px; /* hauteur */
+
+    left: 10px; /* écart à gauche */
+
+    top: 0; 
+    bottom: 0;
+    margin: auto 0; /* permet de mettre au centre de l'écran */
+
+    padding: 20px 10px; /* largeur intérieur */
+    border-radius: 30px; 
+}
+
+nav ul {
+    list-style: none;
+
+    display: flex;
+    justify-content: space-between; /* met un écart entre */
+
+    align-items: center; /* aligne au centre */
+    flex-flow: column; /* en colonne */
+
+    height: 100%;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: $tertiaire;
+
+    cursor: pointer;
+}
+
+nav ul li a svg {
+    width: 20px;
+    height: 20px;
+}
+
+.responsive-nav {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .responsive-nav {
+        display: block;
+    }
+
+    .responsive-header {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        display: none;
+    }
+}

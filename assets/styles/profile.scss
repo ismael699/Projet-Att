@@ -1,0 +1,55 @@
+.profile {
+    background-color: #fff;
+    width: 90%;
+    height: auto; /* Largeur auto */
+    border-radius: 10px; /* Pour arrondir les coins de la carte */
+    position: relative;
+    text-align: center; /* Centrer le contenu textuel */
+    padding-top: 80px; /* Pour décaler le contenu à cause de l'image de profil */
+}
+
+.profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden; /* Assure que l'image reste dans son contenu */
+    border: 5px solid #fff; /* Bordure blanche pour plus d'élégance */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre pour plus de profondeur */
+    position: absolute;
+    top: -75px; /* Décale l'image de profil vers le haut */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Pour s'assurer que l'image couvre entièrement le conteneur */
+}
+
+.profile-infos {
+    margin-top: 20px;
+}
+
+.profile-infos .p-infos {
+    margin-bottom: 20px;
+}
+
+.profile-infos #p-name {
+    font-size: 40px;
+}
+
+@media (min-width: 768px) {
+    .profile {
+        width: 40%;
+    }
+
+    .profile-img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .profile-infos h2 {
+        font-size: 24px;
+    }
+}

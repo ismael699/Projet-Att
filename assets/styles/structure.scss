@@ -4,64 +4,7 @@
 }
 
 body {
-    background-color: pink;
-}
-
-/* Bouton */
-
-#btn-log {
-    display: flex;
-}
-
-.ecart {
-    margin: 0 10px;
-}
-
-.button {
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 15px;
-    width: 50%;
-    text-decoration: none;
-}
-
-.btn-ok {
-    background-color: $secondary;
-    margin-top: 10px;
-}
-
-.btn-new {
-    background-color: $primary;
-    margin-top: 10px;
-}
-
-/* Formulaire */
-
-.form {
-    /* border: solid 1px var(--secondary-color); */
-    height: 400px;
-    width: 90%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* centre les éléments horizontalement */
-    justify-content: center; /* centre les éléments verticalement */
-}
-
-input {
-    margin: 10px;
-    width: 80%;
-    padding: 10px;
-    border-radius: 10px;
-    /* border: solid 1px $secondary; */
-
-    border: none;
-    background-color: $secondary;
-}
-
-input::placeholder {
-    color: white;
+    background-color: white;
 }
 
 .center {
@@ -70,29 +13,23 @@ input::placeholder {
     width: 100vw;
     display: grid;
     place-items: center; 
-
+    
     /* margin: 0 auto; */
 }
 
-.petite-ligne {
-    font-size: 12px;
+.center-2 {
+    height: 100vh;
+    height: calc(100vh - 100px); /* permet de rester au centre de l'écran même avec la largeur de la nav */
+    width: 100vw;
+    /* width: calc(100vw - 20px); */
+    display: grid;
+    place-items: center; 
 }
 
-.img-logo {
-    height: 120px;
-}
+.profile-svg {
+    height: 40px;
+    width: 40px;
 
-@media (min-width: 600px) { 
-    form {
-        height: 400px;
-        width: 400px;
-    }
-
-    .img-logo {
-        height: 170px;
-    }
-
-    .petite-ligne {
-        font-size: 15px;
-    }
+    padding-top: 20px;
+    padding-left: 20px;
 }

@@ -1,0 +1,85 @@
+.card {
+    background-color: white;
+    width: 80vw; 
+    height: auto;
+    padding: 10px; 
+    margin: 0 auto ; /* centre au milieu */
+
+    border: 1px solid rgb(245, 243, 243);
+}
+
+.card:hover {
+    background-color: rgb(245, 243, 243);
+}
+
+.card-left {
+    padding: 10px;
+}
+
+.left-between {
+    align-items: center; /* aligne horizontalement */
+    justify-content: space-between;
+}
+
+.card-left img {
+    height: 80px;
+    width: 80px;
+    object-fit: cover; /* Pour s'assurer que l'image couvre entièrement le conteneur */
+    border-radius: 10px;
+}
+
+.flex-card-1 {
+    display: flex;
+}
+
+.card-left #card-title {
+    margin-left: 20px;
+}
+
+
+/*  Droite  */
+
+.card-right {
+    padding: 10px;
+}
+
+.svg-container { /* aligne les SVG */
+    display: flex;
+    align-items: center;
+}
+
+.size-6 { /* taille SVG */
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}
+
+.flex-card-2 {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Media */
+
+@media (min-width: 768px) {
+    .d-flex {
+        display: flex;
+    }
+
+    .card-left {
+        width: 50%;
+    }
+
+    .card-right {
+        width: 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 90vw;
+    }
+}
+
+
+

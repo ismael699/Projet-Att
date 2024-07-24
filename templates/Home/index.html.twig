@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+   <div class="center">
+        <form action="#" class="form">
+            <img src="logo-entreprise.jpg" alt="Logo de l'entreprise." class="img-logo">
+            <div id="btn-log">
+                <a class="button btn-new ecart" href="{{ path('app.register') }}">Inscription</a>
+                <a class="button btn-ok ecart" href="{{ path('app.login') }}">Connexion</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

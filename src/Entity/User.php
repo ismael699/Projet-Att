@@ -67,7 +67,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface // ?
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity:UserInfos::class, inversedBy: 'user', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(name: "user_infos_id", referencedColumnName: "id")]
     private ?UserInfos $UserInfos = null;
 

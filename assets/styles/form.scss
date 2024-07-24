@@ -1,0 +1,51 @@
+.form {
+    /* border: solid 1px var(--secondary-color); */
+    height: 400px;
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centre les éléments horizontalement */
+    justify-content: center; /* centre les éléments verticalement */
+}
+
+input {
+    margin: 10px;
+    width: 80%;
+    padding: 10px;
+    border-radius: 10px;
+    /* border: solid 1px $secondary; */
+
+    border: none;
+    background-color: $secondary;
+}
+
+input::placeholder {
+    color: white;
+}
+
+.petite-ligne {
+    font-size: 12px;
+}
+
+.img-logo {
+    height: 120px;
+}
+
+@media (min-width: 600px) { 
+    form {
+        height: 400px;
+        width: 400px;
+    }
+
+    .img-logo {
+        height: 170px;
+    }
+
+    .petite-ligne {
+        font-size: 15px;
+    }
+}
+
+
+

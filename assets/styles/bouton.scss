@@ -1,0 +1,37 @@
+#btn-log {
+    display: flex;
+}
+
+.ecart {
+    margin: 0 10px;
+}
+
+.button {
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 15px;
+    width: 50%;
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+.btn-ok {
+    background-color: $secondary;
+    margin-top: 10px;
+}
+
+.btn-new {
+    background-color: $primary;
+    margin-top: 10px;
+}
+
+.btn-contact {
+    color: white;
+    background-color: orange;
+    padding: 10px;
+    border-radius: 15px;
+    text-decoration: none;
+    cursor: pointer;
+}
