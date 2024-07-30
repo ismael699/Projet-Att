@@ -3,14 +3,37 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-    <div class="center">
-        <form action="{{ path('app.login') }}" method="post" class="form">
-            <img src="PHOTO-2024-06-04-10-06-44 copie.jpg" alt="Logo de l'entreprise." class="img-logo">
-                <input type="email" id="email" name="_username" value="{{ last_email }}" required autofocus placeholder="Email">
-                <input type="password" id="password" name="_password" required placeholder="Mot de passe">
+<div class="center-form">
+    <div class="form-user">
+        <div class="icon-svg-form margin-top-40">
+            <a href="{{ path('app.home') }}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>  
+            </a>                    
+        </div>
+        <div class="img-form">
+            <img src="{{ asset('images/logo-entreprise.jpg') }}" alt="Image du logo de l'entreprise.">
+        </div>
+        <div>
+            <h1>Connectez-vous</h1>
+            <form action="{{ path('app.login') }}" method="post" class="form-label-input margin-top-20">
+                <div class="form-group">
+                    <label for="#">Adresse email</label>
+                    <input type="email" id="email" name="_username" value="{{ last_email }}" required autofocus placeholder="email@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label for="#">Mot de passe</label>
+                    <input type="password" id="password" name="_password" required placeholder="Entrez votre mot de passe">
+                </div>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            <button class="button btn-ok">Connexion</button>
-        </form>
-        <p class="petite-ligne">Vous n'avez pas de compte ? Cliquez <a href="{{ path('app.register') }}">ici</a></p>
+                <div class="margin-top-20">
+                    <button type="submit" class="btn-new">Connexion</button>
+                </div>
+            </form>
+            <div class="text-center margin-top-40 form-little-line">
+                <p>Vous n'avez pas de compte ? <a href="{{ path('app.register') }}">Inscrivez-vous</a></p> 
+            </div>
+        </div>
     </div>
+</div>
 {% endblock %}

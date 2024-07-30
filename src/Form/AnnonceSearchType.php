@@ -19,29 +19,33 @@ class AnnonceSearchType extends AbstractType
     {
         $builder
             ->add('lieu_depart', EntityType::class, [
-                'label' => 'Lieu de départ',
+                'required' => false,
                 'class' => City::class,
                 'choice_label' => 'name',
-                'required' => false,
+                'attr' => ['class' => 'custom-select'], // ajout de la class css
+                'placeholder' => '.. Paris',
             ])
             ->add('lieu_arrivee', EntityType::class, [
-                'label' => 'Lieu d\'arrivée',
+                'required' => false,
                 'class' => City::class,
                 'choice_label' => 'name',
-                'required' => false,
+                'attr' => ['class' => 'custom-select'], // ajout de la class css
+                'placeholder' => '.. Lyon',
             ])
             ->add('date', DateType::class, [
-                'label' => 'Date',
                 'required' => false,
-                'widget' => 'single_text',
+                'input' => 'datetime', // utilise le format datetime pour la date
+                'format' => 'yyyy-MM-dd', // format de la date
             ])
             ->add('service', EntityType::class, [
+                'required' => false,
                 'class' => Service::class,
                 'choice_label' => 'name',
-                'required' => false,
+                'attr' => ['class' => 'custom-select'], // ajout de la class css
             ])
             ->add('search', SubmitType::class, [
                 'label' => 'Rechercher',
+                'attr' => ['class' => 'btn-new'], // ajout de la class css
             ]);
     }
 

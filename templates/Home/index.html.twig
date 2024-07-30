@@ -3,13 +3,13 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-   <div class="center">
-        <form action="#" class="form">
-            <img src="logo-entreprise.jpg" alt="Logo de l'entreprise." class="img-logo">
-            <div id="btn-log">
-                <a class="button btn-new ecart" href="{{ path('app.register') }}">Inscription</a>
-                <a class="button btn-ok ecart" href="{{ path('app.login') }}">Connexion</a>
+    <div class="center">
+        <div class="form-list">
+            <img src="{{ asset('images/logo-entreprise.jpg') }}" alt="Logo de l'entreprise.">
+            <div class="btn-list">
+                <a href="{{ path('app.register') }}" class="btn-home-1">Inscription</a>
+                <a href="{{ path('app.login') }}" class="btn-home-2">Connexion</a>
             </div>
-        </form>
+        </div>
     </div>
 {% endblock %}

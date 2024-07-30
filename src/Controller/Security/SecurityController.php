@@ -60,7 +60,7 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $roles = $user->getRoles(); // récupère le role choisi par l'utilisateur
+            $roles = $user->getRoles(); // récupère le rôle choisi par l'utilisateur
             $amount = 0; // prix de base
 
             if (in_array('ROLE_CLIENT', $roles)) {
@@ -90,25 +90,22 @@ class SecurityController extends AbstractController
                 'cancel_url' => $this->generateUrl('app.payment_cancel', [], UrlGeneratorInterface::ABSOLUTE_URL),
             ]);
 
-            // création d'un objet Payment pour cette utilisateur
-            $payment = new Payment();
-            $payment->setStatus('pending'); // crée un status 'en attente' a la table paiement
-            $payment->setPaymentDate(new DateTime());
-            $payment->setAmount($amount);
-
-            $user->setPayment($payment); // associe le paiement à l'utilisateur
-            
-            // hashe le mot de passe 
+            // Hash le mot de passe sans encore persister l'utilisateur
             $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
             $user->setPassword($hashedPassword);
-                
-            // enregistre l'utilisateur et le paiement en bdd
-            $em->persist($user);
-            $em->persist($payment);
-            $em->flush();
 
-            // enregistre l'utilisateur dans la session pour le récupérer dans paymentSuccess
-            $session->set('pending_user_id', $user->getId());
+            // Stocke temporairement les données de l'utilisateur dans la session
+            $session->set('pending_user', [
+                'email' => $user->getEmail(),
+                'password' => $user->getPassword(),
+                'roles' => $user->getRoles(),
+                'siren' => $user->getSiren(),
+                'fileName' => $user->getFileName(),
+                'fileSize' => $user->getFileSize(),
+            ]);
+
+            // Stocke le montant du paiement dans la session
+            $session->set('pending_payment_amount', $amount);
 
             return $this->redirect($sessionStripe->url, 303);
         }
@@ -121,34 +118,39 @@ class SecurityController extends AbstractController
     #[Route('/payment/success', name: 'app.payment_success')]
     public function paymentSuccess(EntityManagerInterface $em, SessionInterface $session): Response 
     {
-        // récupére l'ID de l'utilisateur depuis la session
-        $userId = $session->get('pending_user_id');
+        // Récupère les données de l'utilisateur depuis la session
+        $pendingUserData = $session->get('pending_user');
+        $amount = $session->get('pending_payment_amount');
 
-        if (!$userId) {
-            throw $this->createNotFoundException('Utilisateur non trouvé.');
+        if (!$pendingUserData || !$amount) {
+            throw $this->createNotFoundException('Données utilisateur ou montant du paiement introuvables.');
         }
 
-        // récupére l'utilisateur à partir de son ID
-        $user = $em->getRepository(User::class)->find($userId);
+        // Crée l'utilisateur et assigne les données
+        $user = new User();
+        $user->setEmail($pendingUserData['email']);
+        $user->setPassword($pendingUserData['password']);
+        $user->setRoles($pendingUserData['roles']);
+        $user->setSiren($pendingUserData['siren']);
+        $user->setFileName($pendingUserData['fileName']);
+        $user->setFileSize($pendingUserData['fileSize']);
 
-        if (!$user) {
-            throw $this->createNotFoundException('Utilisateur non trouvé.');
-        }
-
-        // récupère le paiement associé à utilisateur
-        $payment = $user->getPayment();
-
-        if (!$payment) {
-            throw $this->createNotFoundException('Paiement non trouvé.');
-        }
-
-        // Met à jour le statut du paiement
+        // Crée un nouvel objet Payment et l'associe à l'utilisateur
+        $payment = new Payment();
         $payment->setStatus('succeeded');
-        $payment->setPaymentDate(new \DateTime()); // Date du paiement
+        $payment->setPaymentDate(new \DateTime());
+        $payment->setAmount($amount);
 
-        // Enregistre et envoie en bdd
+        $user->setPayment($payment);
+
+        // Persiste l'utilisateur et le paiement dans la base de données
+        $em->persist($user);
         $em->persist($payment);
         $em->flush();
+
+        // Supprime les données de la session
+        $session->remove('pending_user');
+        $session->remove('pending_payment_amount');
 
         $this->addFlash('success', 'Paiement effectué avec succès.');
 
@@ -156,8 +158,12 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/payment/cancel', name: 'app.payment_cancel')]
-    public function paymentCancel(): Response 
+    public function paymentCancel(SessionInterface $session): Response 
     {
+       // Supprime les données de la session
+        $session->remove('pending_user');
+        $session->remove('pending_payment_amount');
+
         $this->addFlash('error', 'Paiement annulé.');
 
         return $this->redirectToRoute('app.register');

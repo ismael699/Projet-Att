@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonces en ligne{% endblock %}
+
+{% block body %}
+    {% include "Layout/nav.html.twig" %}
+    {% include "Backend/Annonce/_formSearch.html.twig" %}
+
+    <a href="{{ path('app.annonce.index') }}">Supprimer la recherche</a>
+
+    <h2>Résultats de la recherche</h2>
+    <ul>
+        {% for annonce in annonces %}
+            <li>
+                <h3>{{ annonce.title }}</h3>
+                <p>{{ annonce.description }}</p>
+                <p>Lieu de départ: {{ annonce.lieuDepart.name }}</p>
+                <p>Lieu d'arrivée: {{ annonce.lieuArrivee.name }}</p>
+                <p>Date: {{ annonce.date|date('Y-m-d') }}</p>
+                <p>Service: {{ annonce.service.name }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+

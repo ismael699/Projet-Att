@@ -4,8 +4,6 @@
     height: auto;
     padding: 10px; 
     margin: 0 auto ; /* centre au milieu */
-
-    border: 1px solid rgb(245, 243, 243);
 }
 
 .card:hover {
@@ -14,6 +12,17 @@
 
 .card-left {
     padding: 10px;
+    background-color: rgb(231, 231, 231);
+
+    position: relative; /**/
+}
+
+.card-left:before,
+.card-left:after { /* pour les coins arrondis */
+  content: ""; /* Ajoute du contenu vide aux pseudo-éléments, ce qui est nécessaire pour qu'ils soient affichés */
+  position: absolute;
+  border-radius: 10px;
+  background-color: #fff; /* Couleur de fond du parent */
 }
 
 .left-between {
@@ -41,6 +50,7 @@
 
 .card-right {
     padding: 10px;
+    background-color: rgb(231, 231, 231);
 }
 
 .svg-container { /* aligne les SVG */
@@ -73,11 +83,47 @@
     .card-right {
         width: 50%;
     }
+
+    .card-left:before {
+        top: -10px;
+        right: -10px;
+        width: 20px;
+        height: 20px;
+    }
+      
+    .card-left:after {
+        bottom: -10px;
+        right: -10px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .card-right {
+        border-left: 1px dotted #000; 
+    }
 }
 
 @media (max-width: 768px) {
     .card {
         width: 90vw;
+    }
+
+    .card-left:before {
+        bottom: -10px;
+        left: -10px;
+        width: 20px;
+        height: 20px;
+    }
+      
+    .card-left:after {
+        bottom: -10px;
+        right: -10px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .card-right {
+        border-top: 1px dotted #000; 
     }
 }
 

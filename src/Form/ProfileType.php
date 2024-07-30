@@ -18,28 +18,20 @@ class ProfileType extends AbstractType
     {
         $builder
         ->add('firstName', TextType::class, [
-            'label' => 'Prénom',
-            'label' => false, // désactive l'affichage du label
             'required' => true, // rend le champ obligatoire
-            'attr' => ['placeholder' => 'Prénom'], // ajoute un attribut HTML pour le placeholder
+            'attr' => ['placeholder' => 'John'], // ajoute un attribut HTML pour le placeholder
         ])
         ->add('lastName', TextType::class, [
-            'label' => 'Nom',
-            'label' => false, // désactive l'affichage du label
             'required' => true, // rend le champ obligatoire
-            'attr' => ['placeholder' => 'Nom'], // ajoute un attribut HTML pour le placeholder
+            'attr' => ['placeholder' => 'Doe'], // ajoute un attribut HTML pour le placeholder
         ])
         ->add('phoneNumber', TextType::class, [
-            'label' => 'Téléphone',
-            'label' => false, // désactive l'affichage du label
             'required' => true, // rend le champ obligatoire
-            'attr' => ['placeholder' => 'Téléphone'], // ajoute un attribut HTML pour le placeholder
+            'attr' => ['placeholder' => '06 ..'], // ajoute un attribut HTML pour le placeholder
         ])
         ->add('photoFile', FileType::class, [
-            'label' => 'Photo (JPG, PNG ou PDF)',
-            'label' => false, // désactive l'affichage du label
             'required' => true, // rend le champ obligatoire
-            'attr' => ['placeholder' => 'Photo de profile'], // ajoute un attribut HTML pour le placeholder
+            'attr' => ['class' => 'file-input'], // ajoute un attribut HTML pour le placeholder
             'constraints' => [
                 new File([
                     'mimeTypes' => [ // accepte les images jpeg et png ou un document pdf
@@ -52,10 +44,8 @@ class ProfileType extends AbstractType
             ],
         ])
         ->add('drivingLicenseFile', FileType::class, [
-            'label' => 'Document en PDF', 
-            'label' => false, // désactive l'affichage du label
             'required' => true, // champ obligatoire
-            'attr' => ['placeholder' => 'Permis de conduire'], // ajoute un attribut HTML pour le placeholder
+            'attr' => ['class' => 'file-input'], // ajoute un attribut HTML pour le placeholder
             'constraints' => [
             new NotBlank(['message' => 'Veuillez télécharger un document en PDF.']), // contrainte
             new FileConstraint([

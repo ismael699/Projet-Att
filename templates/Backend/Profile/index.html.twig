@@ -3,44 +3,25 @@
 {% block title %}Mon profile{% endblock %}
 
 {% block body %}
-    {# header responsive #}
-    <header class="responsive-header">
-        <a href="{{ path('app.accueil') }}">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 profile-svg">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" /></svg>              
-        </a>
-    </header>
+{% include "Layout/nav.html.twig" %}
 
-    {# nav responsive #}
-    <div class="responsive-nav">
-        {% include "Layout/nav.html.twig" %}
-    </div>    
-    
-    {# profile #}
-    <div class="center-2">
-        <div class="profile">
-            <div class="profile-img">
-                <img src="{{ asset('images/photo/' ~ userInfos.photoName) }}" alt="Photo de {{ userInfos.firstName }}">
-            </div>
-            <div class="profile-infos">
-                {% if userInfos %}
-                <div class="p-infos">
-                    <p id="p-name">{{ userInfos.firstName }} {{ userInfos.lastName }}</p>
-                    <p>Actif depuis {{ userInfos.createdAt|date('Y') }}</p>
-                </div>
-                {% else %}
-                    <p>Veuillez remplir votre profile.</p>
-                {% endif %}
-                <p style="color: red" class="p-infos">TROUVER QUOI METTRE</p>
-            </div>
-            <div class="profile-bouton">
-                {% if not userInfos %}
-                    <a href="{{ path('app.profile.create') }}">Créer le profile</a>
-                {% else %}
-                    <a href="{{ path('app.profile.edit', {'id': userInfos.id}) }}">Modifier le profile</a>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-
+    <h1>profil</h1>
+    {% if userInfos %}
+        <p>Prénom : {{ userInfos.firstName }}</p>
+        <p>Nom de famille : {{ userInfos.lastName }}</p>
+        <p>Téléphone : {{ userInfos.phoneNumber }}</p>
+        <p>Photo : <img src="{{ asset('images/photo/' ~ userInfos.photoName) }}" alt="Photo de {{ userInfos.firstName }}" height="30px"></p>
+        <p>Permis de conduire : <a href="{{ asset('images/driving_license/' ~ userInfos.drivingLicenseName) }}">Voir le permis de conduire</a></p>
+    {% else %}
+        <p>Prénom :</p>
+        <p>Nom de famille :</p>
+        <p>Téléphone :</p>
+        <p>Photo : <img></p>
+        <p>Permis de conduire : <img></p>
+    {% endif %}
+    {% if not userInfos %}
+    <a href="{{ path('app.profile.create') }}">Créer le profile</a>
+{% else %}
+    <a href="{{ path('app.profile.edit', {'id': userInfos.id}) }}">Modifier le profile</a>
+{% endif %}
 {% endblock %}

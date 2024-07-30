@@ -17,32 +17,32 @@ class AnnonceRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Annonce[] Returns an array of Annonce objects based on search criteria
+     * @return Annonce[] Renvoie un tableau d'objets Annonce en fonction des critères de recherche
      */
     public function findBySearchCriteria($data)
     {
-        $qb = $this->createQueryBuilder('a');
+        $a = $this->createQueryBuilder('a');
 
         if (!empty($data->getLieuDepart())) {
-            $qb->andWhere('a.lieu_depart = :lieu_depart')
+            $a->andWhere('a.lieu_depart = :lieu_depart')
                ->setParameter('lieu_depart', $data->getLieuDepart());
         }
 
         if (!empty($data->getLieuArrivee())) {
-            $qb->andWhere('a.lieu_arrivee = :lieu_arrivee')
+            $a->andWhere('a.lieu_arrivee = :lieu_arrivee')
                ->setParameter('lieu_arrivee', $data->getLieuArrivee());
         }
 
         if (!empty($data->getDate())) {
-            $qb->andWhere('a.date = :date')
+            $a->andWhere('a.date = :date')
                ->setParameter('date', $data->getDate()->format('Y-m-d'));
         }
         
         if (!empty($data->getService())) {
-            $qb->andWhere('a.service = :service')
+            $a->andWhere('a.service = :service')
                ->setParameter('service', $data->getService());
         }
 
-        return $qb->getQuery()->getResult();
+        return $a->getQuery()->getResult();
     }
 }

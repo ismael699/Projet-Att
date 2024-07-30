@@ -1,14 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Création du profile{% endblock %}
+{% block title %}Création de mon profile{% endblock %}
 
 {% block body %}
-    <h1>Création du profile</h1>
-
-    <div class="center">
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit" class="button btn-ok">Créer</button>
-    {{ form_end(form) }}
-    </div>
+    {% include "Backend/Profile/_form.html.twig" %}  
 {% endblock %}

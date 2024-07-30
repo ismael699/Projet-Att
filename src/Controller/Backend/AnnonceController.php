@@ -35,7 +35,7 @@ class AnnonceController extends AbstractController
             $annonces = $annoncesRepo->findAll();
         }
 
-        return $this->render('Annonce/index.html.twig', [
+        return $this->render('Backend/Annonce/index.html.twig', [
             'form' => $form->createView(),
             'annonces' => $annonces,
         ]);
@@ -78,7 +78,7 @@ class AnnonceController extends AbstractController
             return $this->redirectToRoute('app.accueil');
         }
 
-        return $this->render('Annonce/create.html.twig', [
+        return $this->render('Backend/Annonce/create.html.twig', [
             'form' => $form,
         ]);
     }

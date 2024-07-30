@@ -1,14 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Profile - modification des informations{% endblock %}
+{% block title %}Modification de mon profile{% endblock %}
 
 {% block body %}
-    <h1>Modification du profile</h1>
-
-    <div class="center">
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit" class="button btn-ok">Modifier</button>
-        {{ form_end(form) }}
-    </div>
+    {% include "Backend/Profile/_form.html.twig" %}
 {% endblock %}

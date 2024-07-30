@@ -1,0 +1,51 @@
+<div class="center-form">
+    <div class="form-user">
+        <div class="icon-svg-form margin-top-40">
+            <a href="{{ path('app.profile.index') }}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>  
+            </a>                     
+        </div>
+        <div class="img-form">
+            <img src="{{ asset('images/logo-entreprise.jpg') }}" alt="Image du logo de l'entreprise.">
+        </div>
+        <div>
+            <h1>Informations personnel</h1>
+            <div class="form-label-input margin-top-20">
+                {{ form_start(form) }}
+
+                <div class="form-group file-input-container">
+                    <label for="{{ form.photoFile.vars.id }}" class="file-label">Ajouter une photo de profile</label>
+                    {{ form_widget(form.photoFile) }}
+                </div>
+                
+                <div class="form-group margin-top-20">
+                    <label for="">Nom</label>
+                    {{ form_widget(form.lastName) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="">Prénom</label>
+                    {{ form_widget(form.firstName) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="">Numéro de téléphone 🇫🇷</label>
+                    {{ form_widget(form.phoneNumber) }}
+                </div>
+                
+                <div class="form-group file-input-container">
+                    <label for="{{ form.drivingLicenseFile.vars.id }}" class="file-label">Ajouter votre permis de conduire en PDF</label>
+                    {{ form_widget(form.drivingLicenseFile) }}
+                </div>
+                
+                <div class="margin-top-20 margin-bottom-50">
+                    <button type="sumbit" class="btn-new">Ok</button>
+                </div> 
+
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </div>
+</div>

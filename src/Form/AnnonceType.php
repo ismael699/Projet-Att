@@ -9,6 +9,7 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,23 +20,37 @@ class AnnonceType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Titre',
+                'required' => true, // rend le champ obligatoire
+                'attr' => ['placeholder' => 'Entreprise ATT, ..'], // ajoute un attribut HTML pour le placeholder
             ])
             ->add('lieu_depart', EntityType::class, [
+                'required' => true, // rend le champ obligatoire
                 'class' => City::class,
                 'choice_label' => 'name',
+                'attr' => ['class' => 'custom-select'], // ajout de la class css
             ])
             ->add('lieu_arrivee', EntityType::class, [
+                'required' => true, // rend le champ obligatoire
                 'class' => City::class,
                 'choice_label' => 'name',
+                'attr' => ['class' => 'custom-select'], // ajout de la class css
             ])
             ->add('date', DateType::class, [
-                'widget' => 'single_text',
+                'input' => 'datetime', // Utilise le format datetime pour la date
+                'format' => 'yyyy-MM-dd', // Format de la date
+                'html5' => true, // Utilise le type de champ HTML5
+                'required' => true, // rend le champ obligatoire
+                'attr' => ['placeholder' => 'Entreprise ATT, ..'], // ajoute un attribut HTML pour le placeholder
             ])
-            ->add('description')
+            ->add('description', TextareaType::class, [
+                'required' => true, // rend le champ obligatoire
+                'attr' => ['placeholder' => 'A propos, ..', 'class' => 'textarea'], // ajoute un attribut HTML pour le placeholder
+            ])
             ->add('service', EntityType::class, [
+                'required' => true, // rend le champ obligatoire
                 'class' => Service::class,
                 'choice_label' => 'name',
+                'attr' => ['class' => 'custom-select'], // ajout de la class css
             ])
         ;
     }
