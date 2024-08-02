@@ -1,55 +1,134 @@
-.profile {
-    background-color: #fff;
-    width: 90%;
-    height: auto; /* Largeur auto */
-    border-radius: 10px; /* Pour arrondir les coins de la carte */
-    position: relative;
-    text-align: center; /* Centrer le contenu textuel */
-    padding-top: 80px; /* Pour décaler le contenu à cause de l'image de profil */
+.profile-icon-create-edit {
+    justify-content: end;
+    padding-top: 30px;
+
+    svg {
+        height: 35px;
+        color: red; /* changer de couleur en bleu */
+    }
 }
 
-.profile-img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    overflow: hidden; /* Assure que l'image reste dans son contenu */
-    border: 5px solid #fff; /* Bordure blanche pour plus d'élégance */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre pour plus de profondeur */
-    position: absolute;
-    top: -75px; /* Décale l'image de profil vers le haut */
-    left: 50%;
-    transform: translateX(-50%);
+.profile-title a svg {
+    height: 35px;
 }
 
-.profile-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Pour s'assurer que l'image couvre entièrement le conteneur */
+.profile-full {
+    height: auto;
+    width: 100vw;
+    background-color: rgb(242, 242, 242);
+    padding-bottom: 150px;
+    max-width: 100%; /* Assure que les éléments ne dépasse pas de la largeur de cette fenêtre */
 }
 
-.profile-infos {
-    margin-top: 20px;
-}
-
-.profile-infos .p-infos {
-    margin-bottom: 20px;
-}
-
-.profile-infos #p-name {
-    font-size: 40px;
+.profile-center {
+    height: auto;
+    width: 90vw;
+    margin: 0 auto;
 }
 
 @media (min-width: 768px) {
-    .profile {
-        width: 40%;
+    .profile-center {
+        width: 50vw;
     }
+}
 
-    .profile-img {
-        width: 120px;
-        height: 120px;
-    }
+.profile-img {
+    display: flex;
+    justify-content: center;
+}
 
-    .profile-infos h2 {
-        font-size: 24px;
+.profile-img img {
+    height: 110px;
+    width: 110px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-top: 40px;
+}
+
+.profile-img-name {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-list-infos {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-button-infos {
+    margin-top: 10px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    
+    padding: 10px;
+    cursor: pointer;
+
+    width: 90vw;
+    height: 50px;
+    font-size: 17px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    svg {
+        height: 25px;
     }
+}
+
+@media (min-width: 768px) {
+    .profile-button-infos {
+        width: 50vw;
+    }
+}
+
+.profile-menu-contenu {
+    max-height: 0; /* rend le contenu du menu invisible */
+    overflow: hidden; /* masque tout le contenu qui dépasse */
+    transition: max-height 0.2s ease-out; 
+    width: 90vw;
+
+    box-shadow: 0px 1px 5px 0px rgb(182, 177, 177);
+    background-color: red;
+
+    li svg {
+        height: 20px;
+    }
+}
+
+@media (min-width: 768px) {
+    .profile-menu-contenu {
+        width: 50vw;
+    }
+}
+
+.profile-menu-contenu ul {
+    padding: 10px;
+    list-style: none;
+}
+
+.profile-menu-contenu ul li {
+    margin-bottom: 8px;
+}
+
+.profile-menu-contenu.open {
+    max-height: 500px; /* ouvre le contenu du menu jusqu'à 1000px de hauteur */
+    transition: max-height 0.5s ease-in;
+}
+
+.svg-button-delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.svg-button-delete svg {
+    width: 24px; /* Ajustez la taille selon vos besoins */
+    height: 24px; /* Ajustez la taille selon vos besoins */
+    transition: transform 0.2s;
+    color: red;
 }

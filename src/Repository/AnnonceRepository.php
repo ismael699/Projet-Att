@@ -45,4 +45,15 @@ class AnnonceRepository extends ServiceEntityRepository
 
         return $a->getQuery()->getResult();
     }
+
+    /**
+     * @return Annonce[] Renvoie un tableau d'objets Annonce triés par createdAt en ordre décroissant
+     */
+    public function findAllOrderedByCreatedAt()
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }

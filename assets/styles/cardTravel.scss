@@ -129,3 +129,107 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.annonce-group {
+    height: auto;
+    width: 100vw;
+}
+
+.annonce-user {
+    height: auto;
+    width: 90vw;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.annonce-container {
+    border: 1px solid rgb(182, 177, 177);
+    padding: 10px;
+    border-radius: 10px;
+    transition: border-color 0.5s ease, transform 0.5s ease;
+    margin-bottom: 20px; /* Ajoute un espace entre les annonces */
+}
+
+.annonce-container:hover {
+    box-shadow: 0px 1px 10px 0px rgb(182, 177, 177);
+    transform: scale(1.01);
+}
+
+@media (min-width: 768px) {
+    .annonce-user {
+        width: 60vw;
+    }
+}
+
+#annonce-img-chauffeur {
+    width: 40vw;
+
+    img {
+        height: 80px;
+        width: 80px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+}
+
+#annonce-lieu-travel {
+    width: 60vw;
+}
+
+.annonce-depart-arrivee {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.annonce-icon-svg {
+    display: flex;
+    align-items: center; 
+
+    svg {
+        height: 25px;
+        margin-left: 40px;
+        color: red;
+    }
+}
+
+.annonce-date-msg {
+    margin-top: 10px;
+    justify-content: space-around;
+
+    svg {
+        height: 25px;
+    }
+}
+
+.annonce-date-center {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    gap: 10px;
+}
+
+#annonce-svg-msg {
+    cursor: pointer;
+    color: red;
+}
+
+

@@ -2,7 +2,10 @@
 
 namespace App\Controller\Backend;
 
+use App\Entity\User;
+use App\Form\UserType;
 use App\Entity\UserInfos;
+use App\Form\EditEmailPasswordType;
 use App\Form\ProfileType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,6 +26,8 @@ class ProfileController extends AbstractController
 
         return $this->render('Backend/Profile/index.html.twig', [
             'userInfos' => $userInfos,
+            'userEmail' => $user->getEmail(),
+            'user' => $user,
         ]);
     }
 
@@ -68,4 +73,45 @@ class ProfileController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/profile/{id}/edit-user', name: 'app.profile.edit.user', methods: ['GET', 'POST'])]
+    public function editUser(Request $request, User $user, EntityManagerInterface $em): Response 
+    {
+        $form = $this->createForm(EditEmailPasswordType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            $this->addFlash('success', 'Informations de connexion modifié avec succès.');
+            return $this->redirectToRoute('app.profile.index');
+        }
+
+        return $this->render('Backend/Profile/editUser.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
+
+    //#[Route('/profile/{id}/delete', name: 'app.profile.delete', methods: ['POST'])]
+    //public function deleteUser(User $user, Request $request, EntityManagerInterface $em): Response 
+    //{
+        // if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+            // Supprimez les entités liées manuellement
+            // if ($user->getUserInfos()) {
+                // $em->remove($user->getUserInfos());
+            // }
+            // if ($user->getPayment()) {
+                // $em->remove($user->getPayment());
+            // }
+            // foreach ($user->getAnnonces() as $annonce) {
+                // $em->remove($annonce);
+            // }
+
+            // $em->remove($user);
+            // $em->flush();
+        // } 
+
+        // return $this->redirectToRoute('app.home');
+    //}
 }

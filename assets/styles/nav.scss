@@ -1,8 +1,3 @@
-/* .nav-access {
-    background-color: orange;
-    padding: 2px;
-    border-radius: 30px;
-} */
 .nav-2 {
     background-color: rgb(168, 119, 214);
     position: fixed; 
@@ -13,6 +8,8 @@
     width: 300px; /* largeur */
     padding: 10px; 
     border-radius: 30px;
+
+    z-index: 1000;
 }
 
 .nav-2 ul {

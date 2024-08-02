@@ -1,0 +1,49 @@
+/* Menu déroulant js */
+
+.menu-container {
+    position: relative;
+    display: inline-block;
+    width: 100vw;
+}
+
+.menu-toggle {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+
+    margin: 0 auto;
+
+    width: 90vw;
+    height: 60px;
+    border-radius: 40px;
+    font-size: 17px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    svg {
+        height: 25px;
+    }
+}
+
+@media (min-width: 768px) {
+    .menu-toggle {
+        width: 40vw;
+    }
+}
+
+.menu-content {
+    max-height: 0; /* rend le contenu du menu invisible */
+    overflow: hidden; /* masque tout le contenu qui dépasse */
+    transition: max-height 0.5s ease-out; /* transition à l'ouverture du menu */
+}
+
+.menu-content.open {
+    max-height: 1000px; /* ouvre le contenu du menu jusqu'à 1000px de hauteur */
+    transition: max-height 0.5s ease-in; /* transition à la fermeture du menu */
+}
+
+

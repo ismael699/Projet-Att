@@ -28,11 +28,9 @@ class UserType extends AbstractType
                 'Client' => 'ROLE_CLIENT',
                 'Chauffeur' => 'ROLE_CHAUFFEUR',
             ],
+            
             'multiple' => true, // permet la sélection de choix multiple ( à modifier !)
             'expanded' => true, // affiche les choix sous forme de case à cocher
-
-            // 'attr' => ['class' => 'checkbox-input'],
-            // 'label_attr' => ['class' => 'checkbox-label'],
 
             'constraints' => [ // ajoute une contrainte de validation pour s'assurer que le champ n'est pas vide
                 new NotBlank(['message' => 'Veuillez choisir un rôle.']),

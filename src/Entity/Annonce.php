@@ -2,15 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\AnnonceRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Traits\DateTimeTrait;
+use App\Repository\AnnonceRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: AnnonceRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Annonce
 {
+    use DateTimeTrait; // ?
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

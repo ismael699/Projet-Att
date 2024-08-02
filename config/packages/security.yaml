@@ -19,7 +19,7 @@ security:
             form_login:
                 login_path: app.login # route login
                 check_path: app.login # pareil
-                default_target_path: /home # redirection après connexion
+                default_target_path: app.annonce.index # redirection après connexion
                 username_parameter: _username #
                 password_parameter: _password # 
                 enable_csrf: true

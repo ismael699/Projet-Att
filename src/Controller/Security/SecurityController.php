@@ -34,7 +34,7 @@ class SecurityController extends AbstractController
 
             if ($payment && $payment->getStatus() === 'succeeded') {
                 // si le status est "succeeded"
-                return $this->redirectToRoute('app.accueil');
+                return $this->redirectToRoute('app.annonce.index');
             } else {
                 // sinon
                 $this->addFlash('error', 'Utilisateur non trouvé.');

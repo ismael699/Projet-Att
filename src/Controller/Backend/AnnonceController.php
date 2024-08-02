@@ -32,7 +32,7 @@ class AnnonceController extends AbstractController
             $annonces = $annoncesRepo->findBySearchCriteria($data);
         } else {
             // Récupération de toutes les annonces si le formulaire n'est pas soumis
-            $annonces = $annoncesRepo->findAll();
+            $annonces = $annoncesRepo->findAllOrderedByCreatedAt();
         }
 
         return $this->render('Backend/Annonce/index.html.twig', [
@@ -50,7 +50,7 @@ class AnnonceController extends AbstractController
         // vérifie que l'utilisateur a le rôle ROLE_ADMIN ou ROLE_CHAUFFEUR
         if (!$user instanceof User || !array_intersect($user->getRoles(), ['ROLE_ADMIN', 'ROLE_CHAUFFEUR'])) {
             $this->addFlash('error', 'Vous n\'avez pas les autorisations nécessaires pour créer une annonce.');
-            return $this->redirectToRoute('app.accueil');
+            return $this->redirectToRoute('app.annonce.index');
         }
 
         // vérifie si l'utilisateur a rempli son profil et s'il à le ['ROLE_CHAUFFEUR'] 
@@ -75,7 +75,7 @@ class AnnonceController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Annonce créer avec succès.');
-            return $this->redirectToRoute('app.accueil');
+            return $this->redirectToRoute('app.annonce.index');
         }
 
         return $this->render('Backend/Annonce/create.html.twig', [
