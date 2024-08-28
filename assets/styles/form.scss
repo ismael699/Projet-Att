@@ -127,7 +127,7 @@
 
 .center-form {
     height: auto;
-    width: 100vw;
+    width: 100%;
     /* background-color: blueviolet; */
 }
 
@@ -146,7 +146,7 @@
 
 .icon-svg-form svg {
     height: 40px;
-    color: red; /* couleur à modifier */
+    color: $color-3;
 }
 
 .img-form img {
@@ -201,7 +201,7 @@ input {
 
     label {
         padding: 10px 20px; /* padding de 10 en haut et en bas + padding de 20 à gauche et à droite */
-        background-color: rgb(191, 220, 238);
+        background-color: $color-4;
         cursor: pointer; 
         color: black;
         margin-left: 20px;
@@ -229,7 +229,7 @@ input {
 }
 
 .file-label {
-    background-color: rgb(191, 220, 238);
+    background-color: $color-4;
     color: black;
     padding: 10px 20px; /* padding de 10 en haut et en bas + padding de 20 à gauche et à droite */
     cursor: pointer;
@@ -244,7 +244,7 @@ input {
     padding: 5px;
     font-size: 15px;
     color: white;
-    background-color: red;
+    background-color: $color-2;
     border: 1px solid #b4b2b2;
     border-radius: 4px;
     margin-bottom: 10px;
@@ -259,7 +259,6 @@ input {
 }
 
 
-/* ############ */
 
 
 

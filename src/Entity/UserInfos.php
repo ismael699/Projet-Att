@@ -22,12 +22,12 @@ class UserInfos
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(max: 255)] // chaine 180 caractères max
+    #[Assert\Length(max: 255)] 
     #[Assert\NotBlank()] // empêche la soumission du form vide
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(max: 255)] // chaine 180 caractères max
+    #[Assert\Length(max: 255)]
     #[Assert\NotBlank()] // empêche la soumission du form vide
     private ?string $lastName = null;
 
@@ -39,14 +39,20 @@ class UserInfos
     #[Vich\UploadableField(mapping: 'photo', fileNameProperty: 'photoName')]
     private ?File $photoFile = null;
 
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    private ?string $drivingLicenseName = null;
+
     #[Vich\UploadableField(mapping: 'driving_license', fileNameProperty: 'drivingLicenseName')]
     private ?File $drivingLicenseFile = null;
 
     #[ORM\Column(type: "string", length: 255, nullable: true)]
     private ?string $photoName = null;
 
-    #[ORM\Column(type: "string", length: 255, nullable: true)]
-    private ?string $drivingLicenseName = null;
+    #[Vich\UploadableField(mapping: 'fichier', fileNameProperty: 'fileName', size: 'fileSize')]
+    private ?File $File = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $fileName = null;
 
     #[ORM\OneToOne(targetEntity:User::class, mappedBy: 'UserInfos', cascade: ['persist', 'remove'])]
     private ?User $user = null;
@@ -184,5 +190,31 @@ class UserInfos
         $this->user = $user;
 
         return $this;
+    }
+
+    public function setFile(?File $File = null): void
+    {
+        $this->File = $File;
+
+        if (null !== $File) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->File;
+    }
+
+    public function setFileName(?string $fileName): void
+    {
+        $this->fileName = $fileName;
+    }
+
+    public function getFileName(): ?string
+    {
+        return $this->fileName;
     }
 }

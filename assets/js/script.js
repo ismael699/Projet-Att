@@ -1,35 +1,4 @@
-// Menu déroulant _formSearch 
-
-document.addEventListener('DOMContentLoaded', function() {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const menuContent = document.querySelector('.menu-content');
-    const arrow = document.querySelector('.arrow');
-
-    const downArrow = `
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-        </svg>
-    `;
-
-    const upArrow = `
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
-        </svg>
-    `;
-
-    menuToggle.addEventListener('click', function() {
-        menuContent.classList.toggle('open');
-        if (menuContent.classList.contains('open')) {
-            arrow.innerHTML = upArrow;
-        } else {
-            arrow.innerHTML = downArrow;
-        }
-    });
-});
-
-
-// Menu déroulant profile
-
+// Index profil 
 document.addEventListener('DOMContentLoaded', function() {
     function toggleMenu(toggleButtonSelector, menuContentSelector, arrowSelector, firstArrow, secondArrow) {
         const menuToggle = document.querySelector(toggleButtonSelector);
@@ -58,8 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
         </svg>
     `;
 
-    // Appel de la fonction 
-    toggleMenu('.profile-button-infos', '.profile-menu-contenu', '.arrow-info', firstArrow, secondArrow);
+    // Index profil
+    toggleMenu('.first-button-infos', '.profile-menu-contenu', '.arrow-info', firstArrow, secondArrow);
 
     toggleMenu('.second-button-infos', '.second-profile-menu-contenu', '.second-arrow-info', firstArrow, secondArrow);
 
@@ -73,4 +42,45 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+
+
+// Index annonces
+document.addEventListener('DOMContentLoaded', function() {
+    function toggleMenu(button, menu, arrow, firstArrow, secondArrow) {
+        button.addEventListener('click', function() {
+            menu.classList.toggle('open');
+            if (menu.classList.contains('open')) {
+                arrow.innerHTML = secondArrow;
+            } else {
+                arrow.innerHTML = firstArrow;
+            }
+        });
+    }
+
+    const firstArrow = `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+        </svg>
+    `;
+
+    const secondArrow = `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+        </svg>
+    `;
+
+    // Gestion du formulaire de recherche
+    const searchButton = document.querySelector('.annonce-button-infos');
+    const searchMenu = document.querySelector('.first-annonce-search');
+    const searchArrow = document.querySelector('.search-arrow');
+    toggleMenu(searchButton, searchMenu, searchArrow, firstArrow, secondArrow);
+
+    // Gestion des annonces
+    const annonceButtons = document.querySelectorAll('.annonce-second-button-infos');
+    annonceButtons.forEach(button => {
+        const menu = button.nextElementSibling;
+        const arrow = button.querySelector('.annonce-arrow');
+        toggleMenu(button, menu, arrow, firstArrow, secondArrow);
+    });
+});
 

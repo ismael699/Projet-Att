@@ -45,24 +45,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface // ?
      * @var string 
      */
     #[ORM\Column]
-    #[Assert\NotBlank()] // empêche la soumission du form vide
     private ?string $password = null;
 
     #[ORM\Column(length: 9)]
     #[Assert\NotBlank()] // empêche la soumission du form vide
     private ?string $siren = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])] // pareil qu'en haut
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])] // pareil qu'en haut
     private ?Payment $payment = null;
-
-    #[Vich\UploadableField(mapping: 'fichier', fileNameProperty: 'fileName', size: 'fileSize')]
-    private ?File $File = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?string $fileName = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $fileSize = null; // représente la taille du fichier en octets
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
@@ -91,8 +81,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface // ?
             'password' => $this->password,
             'siren' => $this->siren,
             'payment' => $this->payment,
-            'fileName' => $this->fileName,
-            'fileSize' => $this->fileSize,
             'updatedAt' => $this->updatedAt,
             'UserInfos' => $this->UserInfos,
         ];
@@ -106,8 +94,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface // ?
         $this->password = $data['password'] ?? null;
         $this->siren = $data['siren'] ?? null;
         $this->payment = $data['payment'] ?? null;
-        $this->fileName = $data['fileName'] ?? null;
-        $this->fileSize = $data['fileSize'] ?? null;
         $this->updatedAt = $data['updatedAt'] ?? null;
         $this->UserInfos = $data['UserInfos'] ?? null;
     }
@@ -215,42 +201,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface // ?
         }
 
         return $this;
-    }
-
-    public function setFile(?File $File = null): void
-    {
-        $this->File = $File;
-
-        if (null !== $File) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
-
-    public function getFile(): ?File
-    {
-        return $this->File;
-    }
-
-    public function setFileName(?string $fileName): void
-    {
-        $this->fileName = $fileName;
-    }
-
-    public function getFileName(): ?string
-    {
-        return $this->fileName;
-    }
-
-    public function setFileSize(?int $fileSize): void
-    {
-        $this->fileSize = $fileSize;
-    }
-
-    public function getFileSize(): ?int
-    {
-        return $this->fileSize;
     }
 
     public function getUserInfos(): ?UserInfos

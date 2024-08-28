@@ -3,12 +3,35 @@
 {% block title %}Admin - Création d'une ville{% endblock %}
 
 {% block body %}
-    <h1>Création d'une ville</h1>
+<div class="center-form">
+    <div class="form-user">
+        <div class="img-form">
+            <img src="{{ asset('images/logo-entreprise.jpg') }}" alt="Image du logo de l'entreprise.">
+        </div>
+        <div>
+            <h1>Création d'une ville</h1>
 
-    <div class="center">
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit" class="button btn-ok">Créer</button>
-        {{ form_end(form) }}
+            <div class="form-label-input margin-top-20">
+                {{ form_start(form) }}
+
+                <div class="form-group">
+                    <label for="">Nom</label>
+                    {{ form_widget(form.name) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="">Code postal</label>
+                    {{ form_widget(form.code) }}
+                </div>
+
+                <div class="margin-top-20">
+                    <button type="submit" class="btn-new">Créer</button>
+                </div>
+
+            {{ form_end(form) }}
+            </div>
+        </div>
     </div>
+</div>
 {% endblock %}
+

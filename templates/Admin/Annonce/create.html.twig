@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - Création d'une annonce{% endblock %}
+
+{% block body %}
+<div class="center-form">
+    <div class="form-user">
+        <div class="img-form">
+            <img src="{{ asset('images/logo-entreprise.jpg') }}" alt="Image du logo de l'entreprise.">
+        </div>
+        <div>
+            <h1>Création d'une annonce</h1>
+
+            <div class="form-label-input margin-top-20">
+                {{ form_start(form) }}
+
+                <div class="form-group">
+                    <label for="">Titre de l'annonce</label>
+                    {{ form_widget(form.title) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    {{ form_widget(form.date) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="">Lieu de départ</label>
+                    {{ form_widget(form.lieu_depart) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="">Lieu d'arrivée</label>
+                    {{ form_widget(form.lieu_arrivee) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="">Description</label>
+                    {{ form_widget(form.description) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="">Quels service proposez-vous</label>
+                    {{ form_widget(form.service) }}
+                </div>
+
+                <div class="margin-top-20 margin-bottom-50">
+                    <button type="submit" class="btn-new">Créer</button>
+                </div>
+
+            {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -35,8 +35,13 @@
                 </div>
                 
                 <div class="form-group file-input-container">
-                    <label for="{{ form.drivingLicenseFile.vars.id }}" class="file-label">Ajouter votre permis de conduire en PDF</label>
+                    <label for="{{ form.drivingLicenseFile.vars.id }}" class="file-label">Permis de conduire en PDF</label>
                     {{ form_widget(form.drivingLicenseFile) }}
+                </div>
+
+                <div class="form-group file-input-container">
+                    <label for="{{ form.file.vars.id }}" class="file-label">K-bis en PDF</label>
+                    {{ form_widget(form.file) }}
                 </div>
                 
                 <div class="margin-top-20 margin-bottom-50">

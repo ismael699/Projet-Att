@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - index des annonces{% endblock %}
+
+{% block body %}
+
+{% include "Layout/nav.html.twig" %}
+
+    <div class="list-admin">
+        <div class="list-admin-details">
+
+            <div class="img-form">
+                <img src="{{ asset('images/logo-entreprise.jpg') }}" alt="Image du logo de l'entreprise.">
+            </div>
+
+            <div class="btn-admin">
+                <a href="{{ path('admin.annonce.create') }}" class="btn-create-admin">Création d'une annonce</a>
+            </div>
+
+        <table class="tableau-style">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th class="des-768px">Date</th>
+                    <th class="des-768px">Service</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for annonce in annonces %}
+                <tr>
+                    <td>{{ annonce.title }}</td>
+                    <td class="des-768px">{{ annonce.date|date('d/m/Y')}}</td>
+                    <td class="des-768px">{{ annonce.service.name  }}</td>
+                    <td><a href="{{ path('admin.annonce.edit', {'id': annonce.id}) }}">Modifier</a></td>
+                    <td>
+                        <form method="post" action="{{ path('admin.annonce.delete', {'id': annonce.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette annonce ?')" style="display: inline;">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ annonce.id) }}">
+                            <button type="submit">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="2">Aucune annonce trouvé.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+    </div>
+{% endblock %}

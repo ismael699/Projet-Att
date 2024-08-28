@@ -16,6 +16,14 @@ class AnnonceRepository extends ServiceEntityRepository
         parent::__construct($registry, Annonce::class);
     }
 
+    public function countAnnonces(): int
+    {
+        return $this->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     /**
      * @return Annonce[] Renvoie un tableau d'objets Annonce en fonction des critères de recherche
      */
@@ -53,7 +61,6 @@ class AnnonceRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('a')
             ->orderBy('a.createdAt', 'DESC')
-            ->getQuery()
-            ->getResult();
+            ->getQuery()->getResult();
     }
 }

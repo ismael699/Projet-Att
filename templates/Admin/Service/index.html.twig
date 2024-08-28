@@ -3,33 +3,49 @@
 {% block title %}Admin - index des services{% endblock %}
 
 {% block body %}
-    <h1>Liste des utilisateurs</h1>
 
-    <a href="{{ path('admin.service.create') }}">Créer un nouveau service</a>
-    <table>
-        <thead>
-            <tr>
-                <th>Service</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for service in services %}
+{% include "Layout/nav.html.twig" %}
+
+    <div class="list-admin">
+        <div class="list-admin-details">
+
+            <div class="img-form">
+                <img src="{{ asset('images/logo-entreprise.jpg') }}" alt="Image du logo de l'entreprise.">
+            </div>
+
+            <div class="btn-admin">
+                <a href="{{ path('admin.service.create') }}" class="btn-create-admin">Créer un nouveau service</a>
+            </div>
+
+        <table class="tableau-style">
+            <thead>
+                <tr>
+                    <th>Services</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for service in services %}
                 <tr>
                     <td>{{ service.name }}</td>
+                    <td><a href="{{ path('admin.service.edit', {'id': service.id}) }}">Modifier</a></td>
                     <td>
-                        <a href="{{ path('admin.service.edit', {'id': service.id}) }}">Modifier</a>
                         <form method="post" action="{{ path('admin.service.delete', {'id': service.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer çe service ?')" style="display: inline;">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service.id) }}">
                             <button type="submit">Supprimer</button>
                         </form>
                     </td>
                 </tr>
-            {% else %}
+                {% else %}
                 <tr>
                     <td colspan="2">Aucun service trouvé.</td>
                 </tr>
             {% endfor %}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+        
+    </div>
+    </div>
 {% endblock %}

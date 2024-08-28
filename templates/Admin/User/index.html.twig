@@ -3,45 +3,87 @@
 {% block title %}Admin - index des villes{% endblock %}
 
 {% block body %}
-    <h1>Liste des utilisateurs</h1>
 
-    <a href="{{ path('admin.user.create') }}">Créer un nouvel utilisateur</a>
-    <table>
-        <thead>
-            <tr>
-                <th>Email</th>
-                <th>Actions</th>
-                <th>Prénom</th>
-                <th>Nom</th>
-                <th>Téléphone</th>
-                <th>Photo</th>
-                <th>Permis de conduire</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
+{% include "Layout/nav.html.twig" %}
+
+    <div class="list-admin">
+        <div class="list-admin-details">
+
+            <div class="img-form">
+                <img src="{{ asset('images/logo-entreprise.jpg') }}" alt="Image du logo de l'entreprise.">
+            </div>
+
+            <div class="btn-admin">
+                <a href="{{ path('admin.user.create') }}" class="btn-create-admin">Créer un nouvel utilisateur</a>
+            </div>
+
+        <table class="tableau-style">
+
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th class="des-768px">Siren</th>
+                    <th class="des-768px">Nom</th>
+                    <th class="des-768px">Prénom</th>
+                    <th class="des-768px">Téléphone</th>
+                    <th class="des-768px">Photo</th>
+                    <th class="des-768px">K-bis</th>
+                    <th class="des-768px">Permis</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for user in users %}
                 <tr>
                     <td>{{ user.email }}</td>
+                    <td class="des-768px">{{ user.siren }}</td>
+                        {% if user.userInfos %}
+                            <td class="des-768px">{{ user.userInfos.firstName }}</td>
+                            <td class="des-768px">{{ user.userInfos.lastName }}</td>
+                            <td class="des-768px">{{ user.userInfos.phoneNumber }}</td>
+                            <td class="des-768px">
+                                <a href="{{ asset('images/photo/' ~ user.userInfos.photoName) }}" target="_blank">
+                                    <img src="{{ asset('images/photo/' ~ user.userInfos.photoName) }}" alt="Photo de {{ user.userInfos.firstName }}" height="40px">
+                                </a> 
+                            </td>                              
+                            <td class="des-768px">
+                                <a href="{{ asset('images/fichier/' ~ user.userInfos.fileName) }}" target="_blank">     
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 7.5h-.75A2.25 2.25 0 0 0 4.5 9.75v7.5a2.25 2.25 0 0 0 2.25 2.25h7.5a2.25 2.25 0 0 0 2.25-2.25v-7.5a2.25 2.25 0 0 0-2.25-2.25h-.75m-6 3.75 3 3m0 0 3-3m-3 3V1.5m6 9h.75a2.25 2.25 0 0 1 2.25 2.25v7.5a2.25 2.25 0 0 1-2.25 2.25h-7.5a2.25 2.25 0 0 1-2.25-2.25v-.75" /></svg>                                      
+                                </a>
+                            </td>                              
+                            <td class="des-768px">
+                                <a href="{{ asset('images/driving_license/' ~ user.userInfos.drivingLicenseName) }}" target="_blank">     
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 7.5h-.75A2.25 2.25 0 0 0 4.5 9.75v7.5a2.25 2.25 0 0 0 2.25 2.25h7.5a2.25 2.25 0 0 0 2.25-2.25v-7.5a2.25 2.25 0 0 0-2.25-2.25h-.75m-6 3.75 3 3m0 0 3-3m-3 3V1.5m6 9h.75a2.25 2.25 0 0 1 2.25 2.25v7.5a2.25 2.25 0 0 1-2.25 2.25h-7.5a2.25 2.25 0 0 1-2.25-2.25v-.75" /></svg>                                      
+                                </a>
+                            </td>   
+                        {% else %}
+                            <td class="des-768px"></td>
+                            <td class="des-768px"></td>
+                            <td class="des-768px"></td>
+                            <td class="des-768px"></td>
+                            <td class="des-768px"></td>
+                            <td class="des-768px"></td>
+                        {% endif %}
+                    <td><a href="{{ path('admin.user.edit', {'id': user.id}) }}">Modifier</a></td>
                     <td>
-                        <a href="{{ path('admin.user.edit', {'id': user.id}) }}">Modifier</a>
                         <form method="post" action="{{ path('admin.user.delete', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');" style="display: inline;">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
                             <button type="submit">Supprimer</button>
                         </form>
                     </td>
-                    {% if user.userInfos %}
-                        <td>{{ user.userInfos.firstName }}</td>
-                        <td>{{ user.userInfos.lastName }}</td>
-                        <td>{{ user.userInfos.phoneNumber }}</td>
-                        <td><img src="{{ asset('images/photo/' ~ user.userInfos.photoName) }}" alt="Photo de {{ user.userInfos.firstName }}" height="40px"></td>
-                        <td><embed src="{{ asset('images/driving_license/' ~ user.userInfos.drivingLicenseName) }}" alt="Permis de {{ user.userInfos.firstName }}" type="application/pdf" height="40px" width="40px" /></td>
-                    {% endif %}
                 </tr>
-            {% else %}
+                {% else %}
                 <tr>
                     <td colspan="2">Aucun utilisateur trouvé.</td>
                 </tr>
             {% endfor %}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+        
+    </div>
+    </div>
 {% endblock %}

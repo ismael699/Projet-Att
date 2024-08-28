@@ -53,6 +53,17 @@ class ProfileType extends AbstractType
                 'mimeTypesMessage' => 'Veuillez télécharger un document en PDF.', 
                 ]),
             ],
+        ])
+        ->add('file', FileType::class, [
+            'required' => true, // rend le champ obligatoire
+            'attr' => ['class' => 'file-input'], // ajoute un attribut HTML pour la classe
+            'constraints' => [ // ajoute des contraintes de validation pour ce champ
+                new NotBlank(['message' => 'Veuillez télécharger un document en PDF.']),
+                new FileConstraint([ // vérifie que le fichier téléchargé est bien un PDF
+                    'mimeTypes' => ['application/pdf'],
+                    'mimeTypesMessage' => 'Veuillez télécharger un document en PDF.',
+                ]),
+            ],
         ]);
     }
 

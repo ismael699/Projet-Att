@@ -44,8 +44,7 @@ class AnnonceController extends AbstractController
     #[Route('/annonce/create', name: 'app.annonce.create', methods: ['GET', 'POST'])]
     public function create(Request $request, EntityManagerInterface $em, TokenStorageInterface $tokenStorage,): Response
     {
-        // $user = $security->getUser(); // récupère l'utilisateur connecté
-        $user = $tokenStorage->getToken()->getUser();
+        $user = $tokenStorage->getToken()->getUser(); // récupère l'utilisateur connecté 
 
         // vérifie que l'utilisateur a le rôle ROLE_ADMIN ou ROLE_CHAUFFEUR
         if (!$user instanceof User || !array_intersect($user->getRoles(), ['ROLE_ADMIN', 'ROLE_CHAUFFEUR'])) {
@@ -65,7 +64,7 @@ class AnnonceController extends AbstractController
         }
 
         $annonce = new Annonce();
-        $annonce->setChauffeur($user); // le relie à l'annonce 
+        $annonce->setChauffeur($user); // relie l'utilisateur à l'annonce 
 
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);

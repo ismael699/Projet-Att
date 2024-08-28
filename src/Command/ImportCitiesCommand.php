@@ -42,7 +42,7 @@ class ImportCitiesCommand extends Command
     // Méthode d'exécution de la commande
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // Création d'un objet SymfonyStyle pour des sorties stylisées
+        // Création d'un objet SymfonyStyle pour afficher des messages bien formatés dans la console
         $io = new SymfonyStyle($input, $output);
 
         $url = 'https://geo.api.gouv.fr/communes?fields=nom,code,departement,surface&format=json&geometry=centre&limit=50&sort=surface';
@@ -60,8 +60,8 @@ class ImportCitiesCommand extends Command
         // Boucle sur chaque ville retournée par l'API
         foreach ($citiesData as $cityData) {
             $city = new City(); // Création d'un nouvel objet City
-            $city->setName($cityData['nom']); // Définition du nom de la ville
-            $city->setCode($cityData['code']); // Définition du code de la ville
+            $city->setName($cityData['nom']); // lui définit un nom 
+            $city->setCode($cityData['code']); // lui définit un code-postal 
 
             $this->entityManager->persist($city); // Persistance de l'objet City
         }
@@ -70,8 +70,7 @@ class ImportCitiesCommand extends Command
         $this->entityManager->flush();
 
         // Affichage d'un message de succès
-        $io->success('Cities have been successfully imported.');
-
-        return Command::SUCCESS; // Retour d'un code de succès
+        $io->success('Les villes ont été importées avec succès.');
+        return Command::SUCCESS; 
     }
 }

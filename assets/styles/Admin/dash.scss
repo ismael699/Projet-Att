@@ -1,0 +1,70 @@
+.cote-admin-full {
+    height: auto;
+    width: 100%;
+}
+
+.cote-admin {
+    width: 90vw;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .cote-admin {
+        width: 450px;
+    }
+}
+
+.block-infos {
+    margin-top: 30px;
+    height: 100%; 
+    align-items: center;
+    width: 100%;
+}
+
+.block-infos-details {
+    display: flex;
+    align-items: center;
+    padding: 3px; 
+    padding-right: 8px;
+    justify-content: space-between;
+
+    background-color: rgb(227, 225, 225);
+    border-radius: 5px;
+    margin-bottom: 10px;
+
+    width: 100%;
+}
+
+.waaa {
+    background-color: yellow;
+}
+
+.block-infos-details a svg {
+    height: 30px; 
+    width: 30px;
+    color: $color-3;
+    border-radius: 5px;
+    padding: 2px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.admin-svg-mini {
+    height: 20px;
+
+}
+
+.btn-vue-detail {
+    background-color: $color-3;
+    text-decoration: none;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.width-50 {
+    width: 50%;
+}
+
+
+

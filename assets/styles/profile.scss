@@ -1,22 +1,8 @@
-.profile-icon-create-edit {
-    justify-content: end;
-    padding-top: 30px;
-
-    svg {
-        height: 35px;
-        color: red; /* changer de couleur en bleu */
-    }
-}
-
-.profile-title a svg {
-    height: 35px;
-}
-
 .profile-full {
     height: auto;
     width: 100vw;
     background-color: rgb(242, 242, 242);
-    padding-bottom: 150px;
+    padding-bottom: 100px;
     max-width: 100%; /* Assure que les éléments ne dépasse pas de la largeur de cette fenêtre */
 }
 
@@ -29,6 +15,16 @@
 @media (min-width: 768px) {
     .profile-center {
         width: 50vw;
+    }
+}
+
+.profile-icon-create-edit {
+    justify-content: end;
+    padding-top: 30px;
+
+    svg {
+        height: 35px;
+        color: $color-3; /* changer de couleur en bleu */
     }
 }
 
@@ -50,48 +46,13 @@
     justify-content: center;
 }
 
-.profile-list-infos {
-    position: relative;
-    display: inline-block;
-}
-
-.profile-button-infos {
-    margin-top: 10px;
-    background-color: white;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    
-    padding: 10px;
-    cursor: pointer;
-
-    width: 90vw;
-    height: 50px;
-    font-size: 17px;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    svg {
-        height: 25px;
-    }
-}
-
-@media (min-width: 768px) {
-    .profile-button-infos {
-        width: 50vw;
-    }
-}
-
 .profile-menu-contenu {
     max-height: 0; /* rend le contenu du menu invisible */
     overflow: hidden; /* masque tout le contenu qui dépasse */
-    transition: max-height 0.2s ease-out; 
+    transition: max-height 0.5s ease-out; 
     width: 90vw;
 
-    box-shadow: 0px 1px 5px 0px rgb(182, 177, 177);
-    background-color: red;
+    background-color: white;
 
     li svg {
         height: 20px;
@@ -114,21 +75,7 @@
 }
 
 .profile-menu-contenu.open {
-    max-height: 500px; /* ouvre le contenu du menu jusqu'à 1000px de hauteur */
-    transition: max-height 0.5s ease-in;
+    max-height: 1000px; /* ouvre le contenu du menu jusqu'à 1000px de hauteur */
+    transition: max-height 1s ease-in;
 }
 
-.svg-button-delete {
-    background: none;
-    border: none;
-    cursor: pointer;
-    align-items: center;
-    margin-top: 50px;
-}
-
-.svg-button-delete svg {
-    width: 24px; /* Ajustez la taille selon vos besoins */
-    height: 24px; /* Ajustez la taille selon vos besoins */
-    transition: transform 0.2s;
-    color: red;
-}

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Regex;
@@ -28,8 +29,7 @@ class UserType extends AbstractType
                 'Client' => 'ROLE_CLIENT',
                 'Chauffeur' => 'ROLE_CHAUFFEUR',
             ],
-            
-            'multiple' => true, // permet la sélection de choix multiple ( à modifier !)
+            'multiple' => false, // permet la sélection de choix multiple ( à modifier !)
             'expanded' => true, // affiche les choix sous forme de case à cocher
 
             'constraints' => [ // ajoute une contrainte de validation pour s'assurer que le champ n'est pas vide
@@ -46,6 +46,7 @@ class UserType extends AbstractType
             ])
             ->add('password', RepeatedType::class, [
                 'required' => true, // rend le champ obligatoire
+                'mapped' => false,
                 'type' => PasswordType::class,
                 'first_options' => ['attr' => ['placeholder' => 'Entrez votre mot de passe']], // premier champ
                 'second_options' => ['attr' => ['placeholder' => 'Veuillez confirmer votre mot de passe']], // deuxième champ
@@ -64,18 +65,19 @@ class UserType extends AbstractType
                         'message' => 'Le siren doit être composé de 9 chiffres.',
                     ]),
                 ],
-            ])
-            ->add('file', FileType::class, [
-                'required' => true, // rend le champ obligatoire
-                'attr' => ['class' => 'file-input'], // ajoute un attribut HTML pour la classe
-                'constraints' => [ // ajoute des contraintes de validation pour ce champ
-                    new NotBlank(['message' => 'Veuillez télécharger un document en PDF.']),
-                    new FileConstraint([ // vérifie que le fichier téléchargé est bien un PDF
-                        'mimeTypes' => ['application/pdf'],
-                        'mimeTypesMessage' => 'Veuillez télécharger un document en PDF.',
-                    ]),
-                ],
             ]);
+
+            $builder->get('roles')
+            ->addModelTransformer(new CallbackTransformer(
+            function ($rolesArray) {
+                // transform the array to a string
+                return count($rolesArray)? $rolesArray[0]: null;
+            },
+            function ($rolesString) {
+                // transform the string back to an array
+                return [$rolesString];
+            }
+        ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

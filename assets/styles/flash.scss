@@ -1,0 +1,22 @@
+.alert {
+    border-radius: 5px;
+    margin: 0 auto;
+    padding: 10px;
+    width: fit-content;
+}
+
+.alert-danger {
+    background-color: rgb(255, 213, 0);
+}
+
+.alert-success {
+    background-color: green;
+}
+
+.alert-warning {
+    background-color: orangered;
+}
+
+.alert-info {
+    background-color: $color-2;
+}

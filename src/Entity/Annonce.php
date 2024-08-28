@@ -13,17 +13,17 @@ use Doctrine\Common\Collections\ArrayCollection;
 #[ORM\HasLifecycleCallbacks]
 class Annonce
 {
-    use DateTimeTrait; // ?
+    use DateTimeTrait; 
     
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: City::class)] // ici 
+    #[ORM\ManyToOne(targetEntity: City::class)] 
     private ?City $lieu_depart = null;
 
-    #[ORM\ManyToOne(targetEntity: City::class)] // ici
+    #[ORM\ManyToOne(targetEntity: City::class)] 
     private ?City $lieu_arrivee = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

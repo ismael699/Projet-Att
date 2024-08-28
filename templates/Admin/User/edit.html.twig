@@ -3,12 +3,53 @@
 {% block title %}Admin - modification d'un utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Modification d'un utilisateur</h1>
+<div class="center-form">
+    <div class="form-user">
+        <div class="img-form">
+            <img src="{{ asset('images/logo-entreprise.jpg') }}" alt="Image du logo de l'entreprise.">
+        </div>
+        <div>
+            <h1>Modification d'un utilisateur</h1>
 
-    <div class="center">
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit" class="button btn-ok">Modifier</button>
-        {{ form_end(form) }}
+            <div class="form-label-input margin-top-20">
+                {{ form_start(form) }}
+
+                <div class="choice-roles">
+                    {{ form_row(form.roles) }} 
+                </div>
+
+                <div class="form-group">
+                    <label for="">Adresse email</label>
+                    {{ form_widget(form.email) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="">Mot de passe</label>
+                    {{ form_widget(form.password.first) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="">Confirmation mot de passe</label>
+                    {{ form_widget(form.password.second) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="">Numéro de Siren</label>
+                    {{ form_widget(form.siren) }}
+                </div>
+
+                <div class="form-group file-input-container">
+                    <label for="{{ form.file.vars.id }}" class="file-label">Veuillez télécharger votre K-bis en PDF</label>
+                    {{ form_widget(form.file) }}
+                </div>
+
+                <div class="margin-top-20 margin-bottom-50">
+                    <button type="submit" class="btn-new">Modifier</button>
+                </div>
+
+            {{ form_end(form) }}
+            </div>
+        </div>
     </div>
+</div>
 {% endblock %}

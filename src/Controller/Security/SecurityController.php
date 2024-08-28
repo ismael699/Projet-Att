@@ -52,7 +52,7 @@ class SecurityController extends AbstractController
     {}
 
     #[Route('/register', name: 'app.register', methods: ['GET', 'POST'])]
-    public function register(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher, SessionInterface $session): Response
+    public function register(Request $request, UserPasswordHasherInterface $passwordHasher, SessionInterface $session): Response
     {
         $user = new User(); // nouvel utilisateur
 
@@ -91,7 +91,7 @@ class SecurityController extends AbstractController
             ]);
 
             // Hash le mot de passe sans encore persister l'utilisateur
-            $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
+            $hashedPassword = $passwordHasher->hashPassword($user, $form->get('password')->getData());
             $user->setPassword($hashedPassword);
 
             // Stocke temporairement les données de l'utilisateur dans la session
@@ -100,9 +100,9 @@ class SecurityController extends AbstractController
                 'password' => $user->getPassword(),
                 'roles' => $user->getRoles(),
                 'siren' => $user->getSiren(),
-                'fileName' => $user->getFileName(),
-                'fileSize' => $user->getFileSize(),
             ]);
+
+            $session->set('pending_user', $user);
 
             // Stocke le montant du paiement dans la session
             $session->set('pending_payment_amount', $amount);
@@ -128,12 +128,10 @@ class SecurityController extends AbstractController
 
         // Crée l'utilisateur et assigne les données
         $user = new User();
-        $user->setEmail($pendingUserData['email']);
-        $user->setPassword($pendingUserData['password']);
-        $user->setRoles($pendingUserData['roles']);
-        $user->setSiren($pendingUserData['siren']);
-        $user->setFileName($pendingUserData['fileName']);
-        $user->setFileSize($pendingUserData['fileSize']);
+        $user->setEmail($pendingUserData->getEmail());
+        $user->setPassword($pendingUserData->getPassword());
+        $user->setRoles($pendingUserData->getRoles());
+        $user->setSiren($pendingUserData->getSiren());
 
         // Crée un nouvel objet Payment et l'associe à l'utilisateur
         $payment = new Payment();
@@ -141,6 +139,7 @@ class SecurityController extends AbstractController
         $payment->setPaymentDate(new \DateTime());
         $payment->setAmount($amount);
 
+        // Relie l'utilisateur au paiement
         $user->setPayment($payment);
 
         // Persiste l'utilisateur et le paiement dans la base de données
