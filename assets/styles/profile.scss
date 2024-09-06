@@ -18,13 +18,16 @@
     }
 }
 
-.profile-icon-create-edit {
+.profile-create-edit {
     justify-content: end;
     padding-top: 30px;
 
-    svg {
-        height: 35px;
-        color: $color-3; /* changer de couleur en bleu */
+    a {
+        color: $color-4;
+        text-decoration: none;
+        background-color: $color-3;
+        padding: 5px;
+        border-radius: 5px;
     }
 }
 
@@ -75,7 +78,7 @@
 }
 
 .profile-menu-contenu.open {
-    max-height: 1000px; /* ouvre le contenu du menu jusqu'à 1000px de hauteur */
+    max-height: 2020px; /* ouvre le contenu du menu jusqu'à 1000px de hauteur */
     transition: max-height 1s ease-in;
 }
 

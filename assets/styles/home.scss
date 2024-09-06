@@ -1,0 +1,146 @@
+.home-container {
+    width: 100%;
+}
+
+.home-90 {
+    width: 90vw;
+    margin: 0 auto;
+}
+
+.home-header {
+    margin-top: 50px;
+}
+
+@media (min-width: 1000px) {
+    .home-90 {
+        width: 60vw;
+    }
+}
+
+.home-img {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+.home-btn-container {
+    display: flex;
+    width: 100%;
+    gap: 8px;
+
+    a {
+        text-align: center;
+        padding: 10px;
+        border-radius: 10px;
+        text-decoration: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .home-btn-container {
+        display: flex;
+        justify-content: center;
+        width: 70%;
+        margin: auto;
+        margin-top: 40px;
+    }
+}
+
+#btn-register {
+    color: $color-3;
+    border: 2px solid $color-3;
+    cursor: pointer;
+}
+
+#btn-register:hover {
+    color: white;
+    background-color: $color-3;
+    cursor: pointer;
+}
+
+#btn-login {
+    color: white;
+    background-color: $color-5;
+    cursor: pointer;
+}
+
+#btn-login:hover {
+    color: $color-5;
+    background-color: white;
+    border: 2px solid $color-5;
+}
+
+/* Footer */
+
+footer {
+    height: auto;
+    width: 100%;
+    /*background-color: rgb(215, 208, 208);*/
+    background-color: $color-3;
+
+    margin-top: 50px;
+}
+
+.footer-container {
+    margin: 0 auto;
+    padding-bottom: 30px;
+
+    padding-top: 20px;
+}
+
+.footer-title {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+
+    h3 {
+        color: $color-4;
+        border-radius: 10px;
+        padding: 5px;
+    }
+}
+
+.footer-docs {
+    height: auto;
+    padding: 10px;
+
+    ul {
+        list-style: none;
+    }
+
+    a {
+        text-decoration: none;
+        color: $color-4;
+    }
+
+    svg {
+        height: 30px;
+        color: $color-4;
+    }
+}
+
+.footer-img {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    color: $color-4;
+
+    /*img {
+        filter: grayscale(1);
+    }*/
+}
+
+.alignement {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+@media (min-width: 768px) {
+    .footer-container {
+        display: flex;
+        justify-content: space-around;
+    }
+}

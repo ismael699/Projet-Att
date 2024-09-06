@@ -1,15 +1,84 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Accueil
+{% endblock %}
 
 {% block body %}
-    <div class="center">
-        <div class="form-list">
-            <img src="{{ asset('images/logo-entreprise.jpg') }}" alt="Logo de l'entreprise.">
-            <div class="btn-list">
-                <a href="{{ path('app.register') }}" class="btn-home-1">Inscription</a>
-                <a href="{{ path('app.login') }}" class="btn-home-2">Connexion</a>
-            </div>
+	<section class="home-container">
+		<div class="home-90">
+
+			<header class="home-header">
+				<img src="{{ asset('images/logo-entreprise.jpg') }}" alt="Logo de l\'entreprise." height="100px" id="anim-img-home">
+			</header>
+
+			<main>
+				<div class="home-img" id="anim-img-car">
+					<img src="{{ asset('images/polestar-2.2.avif') }}" alt="Image d\'une voiture." height="250px">
+				</div>
+
+				<div class="margin-top-20" id="anim-description-home">
+					<h1>Un véhicule à déplacer ?</h1>
+					<p class="margin-top-10">
+						Bienvenue sur Active Ton Transport, la plateforme dédiée à la mise en relation entre les clients et les chauffeurs indépendants pour la livraison de véhicules commandés.
+						                        Que vous soyez un particulier ou une entreprise ayant besoin de faire livrer un véhicule, notre application vous connecte avec des chauffeurs professionnels et fiables, prêts à assurer la livraison de votre commande dans les meilleures conditions.
+						                        Notre mission est de rendre le processus de livraison de véhicules aussi simple et transparent que possible.
+					</p>
+				</div>
+				<div class="margin-top-40 home-btn-container" id="anim-btn-home">
+					<a href="{{ path('app.register') }}" class="width-50" id="btn-register">Inscription</a>
+					<a href="{{ path('app.login') }}" class="width-50" id="btn-login">Connexion</a>
+				</div>
+			</main>
+		</div>
+	</section>
+
+	<footer>
+        <div class="footer-title">
+            <h3>#ATT</h3>
         </div>
-    </div>
+		<div class="footer-container">
+			<div class="footer-docs">
+				<ul>
+					<div class="d-flex alignement">
+						<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor">
+							<path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 0 1 .67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 1 1-.671-1.34l.041-.022ZM12 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd"/></svg>
+						<li>
+							<a href="{{ path('app.propos') }}">A propos</a>
+						</li>
+					</div>
+
+					<div class="d-flex alignement">
+						<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="size-6">
+							<path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm11.378-3.917c-.89-.777-2.366-.777-3.255 0a.75.75 0 0 1-.988-1.129c1.454-1.272 3.776-1.272 5.23 0 1.513 1.324 1.513 3.518 0 4.842a3.75 3.75 0 0 1-.837.552c-.676.328-1.028.774-1.028 1.152v.75a.75.75 0 0 1-1.5 0v-.75c0-1.279 1.06-2.107 1.875-2.502.182-.088.351-.199.503-.331.83-.727.83-1.857 0-2.584ZM12 18a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd"/></svg>
+						<li>
+							<a href="{{ path('app.aide') }}">Besoin d'aide ?</a>
+						</li>
+					</div>
+
+					<div class="d-flex alignement">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+						<li>
+							<a href="{{ path('app.cgv') }}">CGV</a>
+						</li>
+					</div>
+
+					<div class="d-flex alignement">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+						<li>
+							<a href="{{ path('app.politique') }}">Politique de confidentialité</a>
+						</li>
+					</div>
+				</ul>
+			</div>
+
+			<div class="footer-img">
+				<div>
+					<img src="{{ asset('images/logo-png.png') }}" alt="Logo de l\'entreprise." height="120px">
+					<p>©2024-ActiveTonTransport</p>
+				</div>
+			</div>
+		</div>
+	</footer>
 {% endblock %}

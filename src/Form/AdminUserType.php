@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Form\AdminUserInfosType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
-class UserType extends AbstractType
+class AdminUserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -29,20 +30,21 @@ class UserType extends AbstractType
             ],
             'multiple' => false, // permet la sélection de choix multiple ( à modifier !)
             'expanded' => true, // affiche les choix sous forme de case à cocher
-            // 'constraints' => [ // ajoute une contrainte de validation pour s'assurer que le champ n'est pas vide
-                // new NotBlank(['message' => 'Veuillez choisir un rôle.']),
-            // ],
+
+            'constraints' => [ // ajoute une contrainte de validation pour s'assurer que le champ n'est pas vide
+                new NotBlank(['message' => 'Veuillez choisir un rôle.']),
+            ],
         ])
             ->add('email', TextType::class, [
-                'required' => false, // rend le champ obligatoire
+                'required' => true, // rend le champ obligatoire
                 'attr' => ['placeholder' => 'email@gmail.com'], // ajoute un attribut HTML pour le placeholder
-                // 'constraints' => [ // ajoute des contraintes de validation pour ce champ
-                    // new NotBlank(['message' => 'Veuillez entrer une adresse email.']),
-                    // new Email(['message' => 'L\'adresse email n\'est pas valide.']),
-                // ],
+                'constraints' => [ // ajoute des contraintes de validation pour ce champ
+                    new NotBlank(['message' => 'Veuillez entrer une adresse email.']),
+                    new Email(['message' => 'L\'adresse email n\'est pas valide.']),
+                ],
             ])
             ->add('password', RepeatedType::class, [
-                'required' => false, // rend le champ obligatoire
+                'required' => true, // rend le champ obligatoire
                 'mapped' => false,
                 'type' => PasswordType::class,
                 'first_options' => ['attr' => ['placeholder' => 'Entrez votre mot de passe']], // premier champ
@@ -50,23 +52,20 @@ class UserType extends AbstractType
                 'invalid_message' => 'Les mots de passe doivent correspondre.', // message d'erreur
                 'constraints' => [ // ajoute des contraintes de validation pour ce champ
                     new NotBlank(['message' => 'Veuillez entrer un mot de passe.']),
-                    new Regex([
-                        'pattern' => '/^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{9,}$/',
-                        'message' => 'Le mot de passe doit contenir au moins 10 caractères, incluant au moins une majuscule, un chiffre et un signe spécial.',
-                    ]),
                 ],
             ])
             ->add('siren', TextType::class, [
                 'required' => true, // rend le champ obligatoire
                 'attr' => ['placeholder' => 'Entrez votre numéro de siren'], // ajoute un attribut HTML pour le placeholder
-                // 'constraints' => [ // ajoute des contraintes de validation pour ce champ
-                    /// new NotBlank(['message' => 'Veuillez entrer un numéro de Siren.']),
-                    /// new Regex([ // ajoute un regex
-                        /// 'pattern' => '/^\d{9}$/',
-                        /// 'message' => 'Le siren doit être composé de 9 chiffres.',
-                    /// ]),
-                // ],
-            ]);
+                'constraints' => [ // ajoute des contraintes de validation pour ce champ
+                    new NotBlank(['message' => 'Veuillez entrer un numéro de Siren.']),
+                    new Regex([ // ajoute un regex
+                        'pattern' => '/^\d{9}$/',
+                        'message' => 'Le siren doit être composé de 9 chiffres.',
+                    ]),
+                ],
+            ])
+            ->add('UserInfos', AdminUserInfosType::class); // Imbrication du formulaire UserInfos;
 
             $builder->get('roles')
             ->addModelTransformer(new CallbackTransformer(

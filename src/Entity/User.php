@@ -31,8 +31,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface // ?
 
     #[ORM\Column(length: 180)] // colonne de max 180 caractères
     #[Assert\Length(max: 180)] // chaine 180 caractères max
-    #[Assert\NotBlank()] // empêche la soumission du form vide
-    #[Assert\Email] // oblige l'utilisateur à mettre un email valide
+    #[Assert\NotBlank(message: 'L\'adresse email ne peut pas être vide.')] 
+    #[Assert\Email(message: 'Email invalide.')] // oblige l'utilisateur à mettre un email valide
     private ?string $email = null;
 
      /**
@@ -48,7 +48,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface // ?
     private ?string $password = null;
 
     #[ORM\Column(length: 9)]
-    #[Assert\NotBlank()] // empêche la soumission du form vide
+    #[Assert\NotBlank(message: 'Le numéro de Siren ne peut pas être vide.')]
+    #[Assert\Regex(
+        pattern: '/^\d{9}$/',
+        message: 'Le numéro de Siren doit être composé de 9 chiffres.'
+    )]
     private ?string $siren = null;
 
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])] // pareil qu'en haut

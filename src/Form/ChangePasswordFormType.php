@@ -21,23 +21,21 @@ class ChangePasswordFormType extends AbstractType
                 'type' => PasswordType::class,
                 'options' => [
                     'attr' => [
-                        'autocomplete' => 'new-password',
+                        'placeholder' => 'Entrez votre mot de passe',
                     ],
                 ],
                 'first_options' => [
+                    'attr' => ['placeholder' => 'Nouveau mot de passe'],
                     'constraints' => [
-                        new NotBlank([
-                            'message' => 'Please enter a password',
-                        ]),
-                        // new PasswordStrength(),
-                        // new NotCompromisedPassword(),
+                        new NotBlank(['message' => 'Veuillez entrer un mot de passe']),
                     ],
-                    'label' => 'New password',
+                    // 'label' => 'New password',
                 ],
                 'second_options' => [
-                    'label' => 'Repeat Password',
+                    'attr' => ['placeholder' => 'Veuillez confirmer votre mot de passe'],
+                    // 'label' => 'Repeat Password',
                 ],
-                'invalid_message' => 'The password fields must match.',
+                'invalid_message' => 'Les champs du mot de passe doivent correspondre.',
                 // Instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,

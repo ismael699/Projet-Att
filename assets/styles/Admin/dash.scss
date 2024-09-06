@@ -1,69 +1,86 @@
-.cote-admin-full {
+.dash-container {
     height: auto;
     width: 100%;
 }
 
-.cote-admin {
-    width: 90vw;
+.dash-container-grid {
+    width: 90%;
+    height: 100px;
     margin: 0 auto;
-}
+    color: $color-4;
 
-@media (min-width: 768px) {
-    .cote-admin {
-        width: 450px;
+    a {
+        background-color: $color-4;
+        color: $color-3;
+        text-decoration: none;
+        padding: 5px;
+        border-radius: 5px;
     }
 }
 
-.block-infos {
-    margin-top: 30px;
-    height: 100%; 
+@media (min-width: 768px) {
+    .dash-container-grid {
+        width: 500px;
+    }
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(60px, auto);
+
+    :hover {
+        background-color: $color-4;
+        color: $color-3;
+
+        svg {
+            color: $color-3;
+        }
+
+        a {
+            background-color: $color-3;
+            color: $color-4;
+        }
+    }
+}
+
+.grid-user {
+    grid-column: 1 / 5;
+    grid-row: 1;
     align-items: center;
-    width: 100%;
-}
-
-.block-infos-details {
-    display: flex;
-    align-items: center;
-    padding: 3px; 
-    padding-right: 8px;
-    justify-content: space-between;
-
-    background-color: rgb(227, 225, 225);
-    border-radius: 5px;
-    margin-bottom: 10px;
-
-    width: 100%;
-}
-
-.waaa {
-    background-color: yellow;
-}
-
-.block-infos-details a svg {
-    height: 30px; 
-    width: 30px;
-    color: $color-3;
-    border-radius: 5px;
-    padding: 2px;
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.admin-svg-mini {
-    height: 20px;
-
-}
-
-.btn-vue-detail {
+    border-radius: 10px;
     background-color: $color-3;
-    text-decoration: none;
-    color: white;
-    padding: 5px;
-    border-radius: 5px;
 }
 
-.width-50 {
-    width: 50%;
+.grid-annonce {
+    grid-column: 1 / 5;
+    grid-row: 2;
+    align-items: center;
+    border-radius: 10px;
+    background-color: $color-3;
+}
+
+.grid-service {
+    grid-column: 1 / 5;
+    grid-row: 3;
+    align-items: center;
+    border-radius: 10px;
+    background-color: $color-3;
+}
+
+.grid-city {
+    grid-column: 1 / 5;
+    grid-row: 4;
+    align-items: center;
+    border-radius: 10px;
+    background-color: $color-3;
+}
+
+.admin-svg {
+    height: 30px;
+    padding: 10px;
+    color: $color-4;
 }
 
 

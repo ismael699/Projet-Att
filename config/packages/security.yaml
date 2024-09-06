@@ -26,7 +26,7 @@ security:
                 use_referer: true
             logout:
                 path: app.logout # route utilisée pour la déconnexion
-                target: app.login # redirige l'utilisateur vers la page de connexion après la déconnexion
+                target: app.home # redirige l'utilisateur vers la page Home après la déconnexion
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

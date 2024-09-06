@@ -1,7 +1,7 @@
 <section class="margin-top-30">
-    <p class="margin-bottom-5">Rechercher une annonce</p>
+    <p class="margin-bottom-5" id="anim-title-annonce-1">Rechercher une annonce</p>
     <div class="menu-list-infos">
-     <button class="menu-button-infos annonce-button-infos">
+     <button class="menu-button-infos annonce-button-infos" id="anim-form-search">
             <div class="d-flex align-item-center gap-8">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>                                                          
@@ -32,7 +32,7 @@
                                 {{ form_widget(form.date) }}
                             </div>
                             <div class="form-group">
-                                <label for="">Quelle service cherchez-vous ?</label>
+                                <label for="">Quel service cherchez-vous ?</label>
                                 {{ form_widget(form.service) }}
                             </div>
                             <div class="form-group margin-top-20 margin-bottom-50">

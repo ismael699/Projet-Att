@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}A propos{% endblock %}
+
+{% block body %}
+    <section class="text-infos">
+        <div class="text-infos-list">
+            <div id="anim-title-infos-legal">
+                <a href="{{ path('app.home') }}"><img src="{{ asset('images/logo-png.png') }}" alt="Image du logo de l'entreprise." class="img-pages-infos"></a>
+                <h1 class="margin-top-20 margin-bottom-20">A propos</h1>
+            </div>
+            <div id="anim-infos-legal">
+                <p class="margin-bottom-10">Bienvenue sur Active Ton Transport</p>
+                <p>La plateforme dédiée à la mise en relation entre les clients et les chauffeurs indépendants pour la livraison de véhicules commandés. Que vous soyez un particulier ou une entreprise ayant besoin de faire livrer un véhicule, notre application vous connecte avec des chauffeurs professionnels et fiables, prêts à assurer la livraison de votre commande dans les meilleures conditions.</p>
+                <p>Notre mission est de rendre le processus de livraison de véhicules aussi simple et transparent que possible. Grâce à Active Ton Transport, vous pouvez facilement commander un véhicule en ligne et choisir un chauffeur qui s'occupera de sa livraison, où que vous soyez. Nous mettons l'accent sur la sécurité, la ponctualité et la qualité du service, tout en offrant aux chauffeurs l'opportunité de gérer leur activité en toute flexibilité.</p>
+                <p>Avec Active Ton Transport, vous bénéficiez d'un service de livraison de véhicules rapide, sécurisé et adapté à vos besoins.</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}

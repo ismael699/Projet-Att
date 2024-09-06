@@ -5,17 +5,12 @@
 {% block body %}
 <div class="center-form">
     <div class="form-user">
-        <div class="icon-svg-form margin-top-40">
-            <a href="{{ path('app.home') }}">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>  
-            </a>                    
-        </div>
         <div class="img-form">
-            <img src="{{ asset('images/logo-entreprise.jpg') }}" alt="Image du logo de l'entreprise.">
+            <a href="{{ path('app.home') }}"><img src="{{ asset('images/logo-png.png') }}" alt="Image du logo de l'entreprise." class="img-pages-infos" id="anim-img-login"></a>
         </div>
         <div>
-            <h1>Connectez-vous</h1>
+            <div id="anim-form-login">
+            <h1 id="anim-title-login">Connectez-vous</h1>
             <form action="{{ path('app.login') }}" method="post" class="form-label-input margin-top-20">
                 <div class="form-group">
                     <label for="#">Adresse email</label>
@@ -26,14 +21,15 @@
                     <input type="password" id="password" name="_password" required placeholder="Entrez votre mot de passe">
                 </div>
                 <div>
-                    <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a>
+                    <a href="{{ path('app_forgot_password_request') }}" class="f-size-13" id="mdp-oublie">Mot de passe oublié ?</a>
                 </div>
+            </div>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                <div class="margin-top-20">
+                <div class="margin-top-20" id="anim-btn-login">
                     <button type="submit" class="btn-new">Connexion</button>
                 </div>
             </form>
-            <div class="text-center margin-top-40 form-little-line">
+            <div class="text-center margin-top-40 form-little-line" id="anim-btn-login">
                 <p>Vous n'avez pas de compte ? <a href="{{ path('app.register') }}">Inscrivez-vous</a></p> 
             </div>
         </div>

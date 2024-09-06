@@ -1,5 +1,3 @@
-/* style final */
-
 .annonce-full {
     min-height: 100vh;
     width: 100vw;
@@ -7,16 +5,42 @@
     background-color: rgb(242, 242, 242);
 }
 
-.annonce-name-title {
-    text-align: center;
-    height: 80px;
+/* Header */
+
+.header-title {
+    width: 100%;
+    height: 100px;
     background-color: white;
     box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+    padding-bottom: 10px;
 }
 
-.annonce-name-title p {
-    padding-top: 50px;
+.header-title-widget {
+    width: 90vw;
+    height: 100px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: end;
+    position: relative;
+
+    img {
+        position: absolute;
+        bottom: 1px;
+        left: 1px;
+
+        height: 60px;
+        width: 70px;
+        object-fit: cover;
+    }
 }
+
+@media (min-width: 768px) {
+    .header-title-widget {
+        width: 50vw;
+    }
+}
+
+/* Main */
 
 .annonce-center {
     height: auto;
@@ -28,6 +52,19 @@
     .annonce-center {
         width: 50vw;
     }
+}
+
+/* Liste annonces */
+
+.padding-bottom-150 {
+    padding-bottom: 150px;
+}
+
+.img-annonce-list {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 /* Formulaire recherche */
@@ -69,17 +106,4 @@
     .form-search {
         max-width: 450px;
     }
-}
-
-/* Liste annonces */
-
-.padding-bottom-150 {
-    padding-bottom: 150px;
-}
-
-.img-annonce-list {
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-    object-fit: cover;
 }

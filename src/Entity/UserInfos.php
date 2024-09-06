@@ -48,7 +48,7 @@ class UserInfos
     #[ORM\Column(type: "string", length: 255, nullable: true)]
     private ?string $photoName = null;
 
-    #[Vich\UploadableField(mapping: 'fichier', fileNameProperty: 'fileName', size: 'fileSize')]
+    #[Vich\UploadableField(mapping: 'fichier', fileNameProperty: 'fileName')]
     private ?File $File = null;
 
     #[ORM\Column(nullable: true)]
@@ -66,6 +66,7 @@ class UserInfos
             'phoneNumber' => $this->phoneNumber,
             'photoName' => $this->photoName,
             'drivingLicenseName' => $this->drivingLicenseName,
+            'fileName' => $this->fileName,
             'user' => $this->user,
         ];
     }
@@ -78,6 +79,7 @@ class UserInfos
         $this->phoneNumber = $data['phoneNumber'] ?? null;
         $this->photoName = $data['photoName'] ?? null;
         $this->drivingLicenseName = $data['drivingLicenseName'] ?? null;
+        $this->fileName = $data['fileName'] ?? null;
         $this->user = $data['user'] ?? null;
     }
 

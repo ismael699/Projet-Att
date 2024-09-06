@@ -6,19 +6,24 @@
     {% include "Layout/nav.html.twig" %}
 
     <div class="annonce-full">
-        <section class="annonce-name-title">
-            <p>Accueil</p>
-        </section>
+
+        <div class="header-title">
+            <div class="header-title-widget d-flex" id="anim-header-annonce">
+                <img src="{{ asset('images/logo-png.png') }}" alt="Image du logo de l'entreprise.">
+                <p>Accueil</p>
+            </div>
+        </div>
+
         <div class="annonce-center">
 
             {% include "Backend/Annonce/_formSearch.html.twig" %}
     
             <div class="margin-top-30 padding-bottom-150">
-                <p class="margin-bottom-5">Chauffeurs disponible</p>
+                <p class="margin-bottom-5" id="anim-title-annonce-2">Chauffeurs disponible</p>
 
                 {% if annonces|length > 0 %}
                     {% for annonce in annonces %}
-                    <div class="menu-list-infos">
+                    <div class="menu-list-infos" id="anim-list-annonces">
                         <button class="menu-button-infos annonce-second-button-infos">
                             <div class="d-flex align-item-center gap-8">
                                 <img src="{{ asset('images/photo/' ~ annonce.chauffeur.userInfos.photoName) }}" alt="Photo du chauffeur." class="img-annonce-list">
@@ -59,7 +64,9 @@
                     </div>
                     {% endfor %}
                 {% else %}
-                    <p>Aucune annonces en ligne.</p>
+                    <div class="margin-top-50">
+                        <p>Aucune annonce en ligne.</p>
+                    </div>
                 {% endif %}
                 
             </div>

@@ -1,22 +1,95 @@
+/* Flash edit mot de passe */
+
 .alert {
     border-radius: 5px;
     margin: 0 auto;
     padding: 10px;
     width: fit-content;
+    max-width: 90%;
 }
 
 .alert-danger {
-    background-color: rgb(255, 213, 0);
+    background-color: red;
 }
 
-.alert-success {
-    background-color: green;
+/* Message flash */
+
+.flash-grand-parent {
+    height: auto;
+    width: 100%;
+    position: fixed; /* Positionne l'élément au-dessus du contenu */
+    top: 20px; /* Ajuste cette valeur en fonction de ta page */
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Assure que l'élément est au-dessus des autres */
+    display: flex;
+    justify-content: end;
+    pointer-events: none; /* Empêche l'interaction avec les éléments en dessous */
 }
 
-.alert-warning {
-    background-color: orangered;
+.flash-parent {
+    display: flex;
+    justify-content: end;
 }
 
-.alert-info {
-    background-color: $color-2;
+.flash-enfant {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-right: 10px;
+    width: auto;
+    max-width: 370px;
+    border-radius: 10px 0 0 10px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transform: translateX(10%); /* Commence hors de l'écran à gauche */
+    animation: msg-flash 5s ease-in-out forwards; /* Déclenche l'animation */
 }
+
+@keyframes msg-flash { 
+    0% { /* de 0 à 20% */
+        opacity: 0;
+        transform: translateX(100%); /* Hors écran à droite */
+    }
+    20% { /* de 20 à 90% */
+        opacity: 1;
+        transform: translateX(0); /* Position normale */
+    }
+    90% { /* de 90 à 100% */
+        opacity: 1;
+        transform: translateX(0); /* Reste en place */
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(100%); /* Hors écran à droite */
+    }
+}
+
+#svg-success-flash {
+    height: 40px;
+    color: green;
+    padding: 5px;
+}
+
+#svg-error-flash {
+    height: 40px;
+    color: red;
+    padding: 5px;
+}
+
+#svg-warning-flash {
+    height: 40px;
+    color: orange;
+    padding: 5px;
+}
+
+#svg-info-flash {
+    height: 40px;
+    color: $color-2;
+    padding: 5px;
+}
+
+
+
+
+

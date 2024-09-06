@@ -1,32 +1,66 @@
 .nav-2 {
     background-color: $color-3;
-    position: fixed; 
+    position: fixed;
     left: 50%; /* déplace l'élément au centre de l'écran */
-    bottom: 50px; /* déplace du bas de l'écran */
+    bottom: 0; /* déplace du bas de l'écran */
     transform: translateX(-50%); /* ajuste l'élément au centre */
-    height: 40px; 
-    width: 300px; 
-    padding: 10px; 
+    height: 40px;
+    padding: 10px;
     border-radius: 30px;
-    z-index: 1000; /* au dessus des autres éléments */
+    z-index: 1000; 
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: navBar 0.8s forwards;
+}
+
+.nav-2.admin {
+    width: 250px;
+}
+
+.nav-2.chauffeur {
+    width: 200px;
+}
+
+.nav-2.client {
+    width: 150px;
 }
 
 .nav-2 ul {
     display: flex;
-    justify-content: space-between; 
-    height: 100%; 
+    justify-content: space-between;
+    width: 100%;
     align-items: center; /* aligne l'élément au centre sur 100% de la hauteur */
-    list-style: none;  
-    padding-left: 10px;
-    padding-right: 10px;
+    list-style: none;
+}
+
+.nav-2 ul li {
+    position: relative;
+    flex: 1;
+    text-align: center;
 }
 
 .nav-2 ul li a {
     color: $color-4;
     cursor: pointer;
+    text-decoration: none;
+    display: block;
 }
 
-nav ul li a svg {
+.nav-2 ul li a svg {
     width: 20px;
     height: 20px;
+}
+
+/* Animation d'apparition */
+@keyframes navBar {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -80%);
+    }
 }

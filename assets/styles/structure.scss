@@ -6,46 +6,68 @@
 body {
     background-color: white;
     font-size: 17px;
+
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
 }
 
 ::placeholder {
-    color: rgb(182, 177, 177); 
+    color: rgb(182, 177, 177);
+    padding: 0 3px;
 }
-
-/* Première accueil */
 
 .center {
     height: 100vh;
-    /* height: calc(100vh - 100px); permet de rester au centre de l'écran même avec la largeur de la nav */
     width: 100%;
     display: grid;
     place-items: center; 
 }
 
-.form-list img {
-    height: 200px;
+/* Home */
+
+.home-container {
+    height: auto;
+    width: 100%;
 }
 
+.home-infos {
+    height: auto;
+    width: 90vw;
+    margin: 0 auto;
+}
 
+@media (min-width: 600px) {
+    .home-infos {
+        width: 400px;
+    }
+}
 
+.home-img {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
 
+.home-description {
+    display: flex;
+    text-align: center;
+    margin-top: 30px;
+}
 
+/* Réutilisable */
 
-
-
-
-
-
-
-
-
-
-/* Design final */
-
-.size-6 { /* SVG */
+.size-6 { 
     width: 24px;
     height: 24px;
     margin-right: 5px;
+}
+
+.padding-bottom-50 {
+    padding-bottom: 50px;
+}
+
+.margin-top-10 {
+    margin-top: 10px;
 }
 
 .margin-top-15 {
@@ -72,6 +94,10 @@ body {
     margin-bottom: 50px;
 }
 
+.margin-bottom-10 {
+    margin-bottom: 10px;
+}
+
 .margin-bottom-20 {
     margin-bottom: 20px;
 }
@@ -96,6 +122,10 @@ body {
     font-size: 17px;
 }
 
+.f-size-13 {
+    font-size: 13px;
+}
+
 .margin-bottom-5 {
     margin-bottom: 5px;
 }
@@ -104,7 +134,50 @@ body {
     padding: 10px;
 }
 
+.width-50 {
+    width: 50%;
+}
 
+.width-45 {
+    width: 45%;
+}
+
+.width-30 {
+    width: 30%;
+}
+
+#mdp-oublie {
+    text-decoration: none;
+    color: black;
+}
+
+/* Page de footer */
+
+.img-pages-infos {
+    margin-top: 30px;
+    height: 50px;
+}
+
+@media (min-width: 600px) {
+    .img-pages-infos {
+        height: 90px;
+    }
+}
+
+.text-infos {
+    width: 100%;
+}
+
+.text-infos-list {
+    width: 90vw;
+    margin: 0 auto;
+}
+
+@media (min-width: 600px) {
+    .text-infos-list {
+        width: 40vw;
+    }
+}
 
 
 

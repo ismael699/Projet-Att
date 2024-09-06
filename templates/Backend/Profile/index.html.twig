@@ -1,39 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon profile{% endblock %}
+{% block title %}Mon profile
+{% endblock %}
 
 {% block body %}
 	{% include "Layout/nav.html.twig" %}
 
-		<section class="profile-full">
-			<div class="profile-center">
-				<div class="d-flex profile-icon-create-edit">
-					{% if not userInfos %}
-						<a href="{{ path('app.profile.create') }}">
-							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
-						</a>
-					{% else %}
-						<a href="{{ path('app.profile.edit', {'id': userInfos.id}) }}">
-							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-								<path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"/></svg>
-						</a>
-					{% endif %}
+	<section class="profile-full">
+		<div class="profile-center">
+			<div class="d-flex profile-create-edit" id="btn-create-edit-profil">
+				{% if not userInfos %}
+					<a href="{{ path('app.profile.create') }}">
+						Créer le profil
+					</a>
+				{% else %}
+					<a href="{{ path('app.profile.edit', {'id': userInfos.id}) }}">
+						Modifier le profil
+					</a>
+				{% endif %}
+			</div>
+			{% if userInfos %}
+				<div id="img-name-profil">
+					<div class="profile-img">
+						<img src="{{ asset('images/photo/' ~ userInfos.photoName) }}" alt="Photo de profile de {{ userInfos.firstName }}">
+					</div>
+					<div class="profile-img-name margin-top-15">
+						<p class="f-size-17">{{ userInfos.lastName }}
+							{{ userInfos.firstName }}</p>
+					</div>
 				</div>
-                {% if userInfos %}
-				<div class="profile-img">
-					<img src="{{ asset('images/photo/' ~ userInfos.photoName) }}" alt="Photo de profile de {{ userInfos.firstName }}">
-				</div>
-				<div class="profile-img-name margin-top-15">
-					<p class="f-size-17">{{ userInfos.lastName }}
-						{{ userInfos.firstName }}</p>
-				</div>
-
 
 				<div class="menu-list-infos margin-top-50">
 
-					<p class="bold">Mes informations</p>
-					<button class="first-button-infos menu-button-infos">
+					<p class="bold" id="title-mes-infos">Mes informations</p>
+					<button class="first-button-infos menu-button-infos" id="btn-mes-infos">
 						<div class="d-flex align-item-center gap-8">
 							<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="size-6">
 								<path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z" clip-rule="evenodd"/></svg>
@@ -61,9 +61,9 @@
 							</li>
 						</ul>
 					</div>
-                    
-					
-					<button class="menu-button-infos second-button-infos">
+
+
+					<button class="menu-button-infos second-button-infos" id="btn-mes-infos">
 						<div class="d-flex align-item-center gap-8">
 							<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="size-6">
 								<path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd"/></svg>
@@ -116,8 +116,8 @@
 								<img src="https://via.placeholder.com/150?text=User" alt="Photo de profile de l'utilisateur.">
 							</div>
 							<div class="menu-list-infos margin-top-50">
-								<p class="bold">Mes informations</p>
-								<button class="first-button-infos menu-button-infos">
+								<p class="bold" id="title-mes-infos">Mes informations</p>
+								<button class="first-button-infos menu-button-infos" id="btn-mes-infos">
 									<div class="d-flex align-item-center gap-8">
 										<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="size-6">
 											<path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z" clip-rule="evenodd"/></svg>
@@ -138,15 +138,15 @@
 											</svg>
 											{{ userEmail }}
 										</li>
-                                        <li class="d-flex align-item-center gap-8">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" fill="currentColor" class="size-4">
-                                                <path d="M13.488 2.513a1.75 1.75 0 0 0-2.475 0L6.75 6.774a2.75 2.75 0 0 0-.596.892l-.848 2.047a.75.75 0 0 0 .98.98l2.047-.848a2.75 2.75 0 0 0 .892-.596l4.261-4.262a1.75 1.75 0 0 0 0-2.474Z"/>
-                                                <path d="M4.75 3.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25V9A.75.75 0 0 1 14 9v2.25A2.75 2.75 0 0 1 11.25 14h-6.5A2.75 2.75 0 0 1 2 11.25v-6.5A2.75 2.75 0 0 1 4.75 2H7a.75.75 0 0 1 0 1.5H4.75Z"/></svg>
-                                            <a href="{{ path('app.profile.edit.user', {'id': user.id}) }}">Modifier mes informations</a>
-                                        </li>
+										<li class="d-flex align-item-center gap-8">
+											<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" fill="currentColor" class="size-4">
+												<path d="M13.488 2.513a1.75 1.75 0 0 0-2.475 0L6.75 6.774a2.75 2.75 0 0 0-.596.892l-.848 2.047a.75.75 0 0 0 .98.98l2.047-.848a2.75 2.75 0 0 0 .892-.596l4.261-4.262a1.75 1.75 0 0 0 0-2.474Z"/>
+												<path d="M4.75 3.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25V9A.75.75 0 0 1 14 9v2.25A2.75 2.75 0 0 1 11.25 14h-6.5A2.75 2.75 0 0 1 2 11.25v-6.5A2.75 2.75 0 0 1 4.75 2H7a.75.75 0 0 1 0 1.5H4.75Z"/></svg>
+											<a href="{{ path('app.profile.edit.user', {'id': user.id}) }}">Modifier mes informations</a>
+										</li>
 									</ul>
 								</div>
-								<button class="menu-button-infos second-button-infos">
+								<button class="menu-button-infos second-button-infos" id="btn-mes-infos">
 									<div class="d-flex align-item-center gap-8">
 										<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="size-6">
 											<path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd"/></svg>
@@ -160,14 +160,14 @@
 								</button>
 								<div class="profile-menu-contenu second-profile-menu-contenu">
 									<ul>
-										<li class="d-flex align-item-center gap-8">											
-											Veuillez remplir votre profil
+										<li class="d-flex align-item-center gap-8">
+											Veuillez remplir votre profil.
 										</li>
 									</ul>
 								</div>
 							{% endif %}
-							<p class="margin-top-30 bold">ATT</p>
-							<button class="menu-button-infos three-button-infos">
+							<p class="margin-top-30 bold" id="title-att">ATT</p>
+							<button class="menu-button-infos three-button-infos" id="btn-att">
 								<div class="d-flex align-item-center gap-8">
 									<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="size-6">
 										<path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 0 1 .67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 1 1-.671-1.34l.041-.022ZM12 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd"/></svg>
@@ -181,10 +181,27 @@
 							</button>
 							<div class="profile-menu-contenu three-profile-menu-contenu">
 								<ul>
-									<li>Infos</li>
+									<li>
+										Bienvenue sur Active Ton Transport, la plateforme dédiée à la mise en relation entre les clients et les chauffeurs indépendants pour la livraison de véhicules commandés.
+									</li>
+									<li>
+										Que vous soyez un particulier ou une entreprise ayant besoin de faire livrer un véhicule, notre application vous connecte avec des chauffeurs professionnels et fiables, prêts à assurer la livraison de votre commande dans les meilleures conditions.
+									</li>
+									<li>
+										Notre mission est de rendre le processus de livraison de véhicules aussi simple et transparent que possible.
+									</li>
+									<li>
+										Grâce à Active Ton Transport, vous pouvez facilement commander un véhicule en ligne et choisir un chauffeur qui s'occupera de sa livraison, où que vous soyez.
+									</li>
+									<li>
+										Nous mettons l'accent sur la sécurité, la ponctualité et la qualité du service, tout en offrant aux chauffeurs l'opportunité de gérer leur activité en toute flexibilité.
+									</li>
+									<li>
+										Avec Active Ton Transport, vous bénéficiez d'un service de livraison de véhicules rapide, sécurisé et adapté à vos besoins.
+									</li>
 								</ul>
 							</div>
-							<button class="menu-button-infos four-button-infos">
+							<button class="menu-button-infos four-button-infos" id="btn-att">
 								<div class="d-flex align-item-center gap-8">
 									<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="size-6">
 										<path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm11.378-3.917c-.89-.777-2.366-.777-3.255 0a.75.75 0 0 1-.988-1.129c1.454-1.272 3.776-1.272 5.23 0 1.513 1.324 1.513 3.518 0 4.842a3.75 3.75 0 0 1-.837.552c-.676.328-1.028.774-1.028 1.152v.75a.75.75 0 0 1-1.5 0v-.75c0-1.279 1.06-2.107 1.875-2.502.182-.088.351-.199.503-.331.83-.727.83-1.857 0-2.584ZM12 18a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd"/></svg>
@@ -198,11 +215,75 @@
 							</button>
 							<div class="profile-menu-contenu four-profile-menu-contenu">
 								<ul>
-									<li>Infos</li>
+									<li>
+										<strong>1. Identification de l'entreprise :</strong>
+										<ul>
+											<li>Nom de l'entreprise : Active Ton Transport</li>
+											<li>Forme juridique :</li>
+											<li>Capital social :</li>
+											<li>Siège social : 37 avenue Pablo Picasso, Vaulx en Velin, 69120</li>
+											<li>Numéro SIRET :</li>
+											<li>RCS :</li>
+											<li>Numéro de TVA intracommunautaire :</li>
+											<li>Responsable de la publication : Mme Louas Linda</li>
+										</ul>
+									</li>
+
+									<li>
+										<strong>2. Coordonnées de contact :</strong>
+										<ul>
+											<li>Téléphone : 0602495834</li>
+											<li>Email : activetontransport@gmail.com</li>
+											<li>Site web :
+												<a href="https://active-ton-transport.fr" target="_blank">https://active-ton-transport.fr</a>
+											</li>
+										</ul>
+									</li>
+
+									<li>
+										<strong>3. Hébergement du site :</strong>
+										<ul>
+											<li>Nom de l'hébergeur : Hostinger</li>
+											<li>Adresse de l'hébergeur :</li>
+											<li>Hostinger International Ltd.</li>
+											<li>61 Lordou Vironos Street, 6023 Larnaca, Chypre</li>
+											<li>Téléphone : +370 645 03378</li>
+										</ul>
+									</li>
+
+									<li>
+										<strong>4. Activité de l'entreprise :</strong>
+										<p>L'entreprise Active Ton Transport est spécialisée dans le transfert de véhicules. Nous offrons des services de transport de véhicules pour particuliers et professionnels, incluant le transport de véhicules neufs, d'occasion, dans toute la France et vers l’Europe.</p>
+									</li>
+
+									<li>
+										<strong>5. Propriété intellectuelle :</strong>
+										<p>Le contenu du site
+											<a href="https://active-ton-transport.fr" target="_blank">https://active-ton-transport.fr</a>
+											(textes, images, graphismes, logo, etc.) est la propriété exclusive de Active Ton Transport ou de ses partenaires et est protégé par les lois françaises et internationales relatives à la propriété intellectuelle. Toute reproduction, distribution, modification ou utilisation du contenu sans autorisation écrite préalable est interdite.</p>
+									</li>
+
+									<li>
+										<strong>6. Protection des données personnelles :</strong>
+										<p>En conformité avec le Règlement Général sur la Protection des Données (RGPD), Active Ton Transport s'engage à respecter la confidentialité des données personnelles collectées sur son site. Les informations recueillies sont nécessaires pour traiter vos demandes et améliorer nos services. Elles ne seront ni vendues ni cédées à des tiers sans votre consentement.</p>
+										<p>Vous disposez d'un droit d'accès, de rectification et de suppression des données vous concernant, que vous pouvez exercer en envoyant un email à
+											<a href="mailto:activetontransport@gmail.com">activetontransport@gmail.com</a>
+											ou en nous écrivant à l'adresse du siège social.</p>
+									</li>
+
+									<li>
+										<strong>7. Limitation de responsabilité :</strong>
+										<p>Active Ton Transport s'efforce d'assurer l'exactitude des informations publiées sur son site. Toutefois, nous ne pouvons garantir que le site sera exempt d'erreurs ou d'omissions. Active Ton Transport décline toute responsabilité en cas de dommages directs ou indirects résultant de l'utilisation du site.</p>
+									</li>
+
+									<li>
+										<strong>8. Droit applicable et juridiction compétente :</strong>
+										<p>Les présentes mentions légales sont régies par la loi française. En cas de litige, et après tentative de résolution à l'amiable, les tribunaux de Lyon seront seuls compétents.</p>
+									</li>
 								</ul>
 							</div>
-							<p class="margin-top-30 bold">Informations légales</p>
-							<button class="menu-button-infos five-button-infos">
+							<p class="margin-top-30 bold" id="title-infos-legal">Informations légales</p>
+							<button class="menu-button-infos five-button-infos" id="btn-infos-legal">
 								<div class="d-flex align-item-center gap-8">
 									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
 										<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
@@ -216,10 +297,72 @@
 							</button>
 							<div class="profile-menu-contenu five-profile-menu-contenu">
 								<ul>
-									<li>Infos</li>
+									<li>
+										<strong>1. Objet</strong>
+										<p>Les présentes Conditions Générales de Vente (CGV) régissent les relations contractuelles entre la société Active Ton Transport, dont le siège social est situé à 37 avenue Pablo Picasso, Vaulx en Velin, 69120, immatriculée au RCS de Lyon sous le numéro [Numéro SIRET], et toute personne physique ou morale (ci-après dénommée "le Client") souhaitant bénéficier des services de transfert de véhicules proposés par Active Ton Transport.</p>
+									</li>
+
+									<li>
+										<strong>2. Services Proposés</strong>
+										<p>Active Ton Transport propose des services de transfert de véhicules pour particuliers et professionnels. Nos prestations incluent, sans s'y limiter :</p>
+										<ul>
+											<li>Transport de véhicules neufs ou d'occasion.</li>
+											<li>Transfert de véhicules de collection.</li>
+											<li>Transport de véhicules utilitaires et professionnels.</li>
+										</ul>
+										<p>Les services sont fournis sous réserve de disponibilité et dans les conditions définies par le devis accepté par le Client.</p>
+									</li>
+
+									<li>
+										<strong>3. Commande</strong>
+										<p>Toute commande passée auprès de Active Ton Transport doit faire l'objet d'un devis préalable, accepté par le Client. La commande est réputée ferme et définitive à la réception par Active Ton Transport du devis signé par le Client accompagné du paiement des frais de dossiers prévu.</p>
+									</li>
+
+									<li>
+										<strong>4. Tarifs et Modalités de Paiement</strong>
+										<p>Les tarifs des services sont indiqués en euros, hors taxes (HT) et toutes taxes comprises (TTC). Les tarifs sont fixés sur la base des informations communiquées par le Client (distance, type de véhicule, etc.). Toute modification des informations initiales pourra entraîner un ajustement du tarif.</p>
+										<p>Le paiement des services s'effectue selon les modalités définies dans le devis. Sauf stipulation contraire, le solde est dû à la réception de la facture. En cas de retard de paiement, des pénalités pourront être appliquées conformément à la législation en vigueur.</p>
+									</li>
+
+									<li>
+										<strong>5. Annulation et Rétractation</strong>
+										<p>Le Client peut annuler la commande en informant le chauffeur par écrit dans un délai de [précisez le délai, par exemple, 14 jours] avant la date prévue du transfert. En cas d'annulation tardive, des frais d'annulation pourront être facturés.</p>
+										<p>Conformément aux dispositions légales, le Client particulier dispose d'un droit de rétractation de [14 jours] à compter de la date de conclusion du contrat, sauf si le service a commencé avec son accord avant la fin de ce délai.</p>
+									</li>
+
+									<li>
+										<strong>6. Responsabilité</strong>
+										<p>Active Ton Transport s'engage à exécuter les prestations commandées avec soin et diligence. Toutefois, la société ne saurait être tenue responsable en cas de :</p>
+										<ul>
+											<li>Dommages indirects, préjudices financiers ou pertes de profit subis par le Client.</li>
+											<li>Retards imputables à des causes externes (conditions de circulation, intempéries, etc.).</li>
+											<li>Dommages causés au véhicule résultant d’un défaut de maintenance ou d’une non-conformité aux normes techniques.</li>
+										</ul>
+										<p>La responsabilité d'Active Ton Transport est limitée au montant du service facturé.</p>
+									</li>
+
+									<li>
+										<strong>7. Assurances</strong>
+										<p>Active Ton Transport est couverte par une assurance responsabilité civile professionnelle pour les dommages pouvant survenir lors du transport des véhicules. Le Client est invité à vérifier sa propre couverture d'assurance pour le véhicule transporté.</p>
+									</li>
+
+									<li>
+										<strong>8. Réclamations</strong>
+										<p>Toute réclamation relative à l’exécution des services doit être formulée par écrit et envoyée à l'adresse 37 avenue Pablo Picasso, Vaulx en Velin, 69120. Active Ton Transport s'engage à traiter la réclamation dans les plus brefs délais.</p>
+									</li>
+
+									<li>
+										<strong>9. Droit applicable et juridiction compétente</strong>
+										<p>Les présentes CGV sont régies par le droit français. En cas de litige, les parties s'efforceront de résoudre le différend à l'amiable. À défaut de résolution amiable, les tribunaux compétents seront ceux du ressort du siège social d'Active Ton Transport.</p>
+									</li>
+
+									<li>
+										<strong>10. Modifications des CGV</strong>
+										<p>Active Ton Transport se réserve le droit de modifier les présentes CGV à tout moment. Les CGV applicables sont celles en vigueur à la date de la commande du Client.</p>
+									</li>
 								</ul>
 							</div>
-							<button class="menu-button-infos six-button-infos">
+							<button class="menu-button-infos six-button-infos" id="btn-infos-legal">
 								<div class="d-flex align-item-center gap-8">
 									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
 										<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
@@ -233,10 +376,96 @@
 							</button>
 							<div class="profile-menu-contenu six-profile-menu-contenu">
 								<ul>
-									<li>Infos</li>
+									<li>
+										<strong>1. Introduction</strong><br>
+										La présente politique de confidentialité décrit comment Active Ton Transport (ci-après "nous", "notre", "nos") collecte, utilise, et protège les informations personnelles de ses clients et visiteurs du site web
+										<a href="https://active-ton-transport.fr">https://active-ton-transport.fr</a>. En utilisant nos services ou en visitant notre site, vous acceptez les termes de cette politique de confidentialité.
+									</li>
+
+									<li>
+										<strong>2. Données Collectées</strong><br>
+										Nous collectons les données personnelles suivantes :
+										<ul>
+											<li>Informations d'identification : Nom, prénom, adresse, numéro de téléphone, adresse email.</li>
+											<li>Informations sur le véhicule : Marque, modèle, immatriculation, état du véhicule.</li>
+											<li>Données de transaction : Informations de paiement, historique des commandes.</li>
+											<li>Données de navigation : Adresses IP, type de navigateur, pages visitées sur notre site.</li>
+										</ul>
+										Ces données sont collectées directement auprès de vous lorsque vous remplissez un formulaire de contact, passez une commande, ou interagissez avec notre site web.
+									</li>
+
+									<li>
+										<strong>3. Utilisation des Données</strong><br>
+										Les données collectées sont utilisées pour :
+										<ul>
+											<li>Fournir et gérer nos services de transfert de véhicules.</li>
+											<li>Traiter les commandes et paiements.</li>
+											<li>Communiquer avec vous au sujet de votre commande ou de nos services.</li>
+											<li>Améliorer l'expérience utilisateur sur notre site web.</li>
+											<li>Respecter nos obligations légales et réglementaires.</li>
+										</ul>
+									</li>
+
+									<li>
+										<strong>4. Partage des Données</strong><br>
+										Nous ne partageons vos données personnelles qu'avec les parties suivantes :
+										<ul>
+											<li>Prestataires de services : Pour le traitement des paiements, la gestion des expéditions, ou l'hébergement du site.</li>
+											<li>Autorités légales : Lorsque la loi l'exige ou pour protéger nos droits et intérêts.</li>
+										</ul>
+										Nous ne vendons, ni ne louons, ni ne divulguons vos données personnelles à des tiers à des fins commerciales.
+									</li>
+
+									<li>
+										<strong>5. Protection des Données</strong><br>
+										Nous mettons en œuvre des mesures de sécurité techniques et organisationnelles pour protéger vos données contre tout accès, divulgation, modification ou destruction non autorisés. Cela inclut le chiffrement des données, des pare-feux, et des protocoles de sécurité pour nos systèmes et réseaux.
+									</li>
+
+									<li>
+										<strong>6. Conservation des Données</strong><br>
+										Nous conservons vos données personnelles uniquement pendant la durée nécessaire pour atteindre les objectifs pour lesquels elles ont été collectées, et pour respecter les obligations légales en matière de conservation.
+									</li>
+
+									<li>
+										<strong>7. Vos Droits</strong><br>
+										Conformément au RGPD, vous disposez des droits suivants concernant vos données personnelles :
+										<ul>
+											<li>Droit d'accès : Vous pouvez demander une copie de vos données personnelles.</li>
+											<li>Droit de rectification : Vous pouvez demander la correction des données inexactes ou incomplètes.</li>
+											<li>Droit à l'effacement : Vous pouvez demander la suppression de vos données personnelles, sous certaines conditions.</li>
+											<li>Droit à la limitation du traitement : Vous pouvez demander la limitation du traitement de vos données dans certaines situations.</li>
+											<li>Droit à la portabilité des données : Vous pouvez demander à recevoir vos données dans un format structuré et couramment utilisé.</li>
+										</ul>
+										Pour exercer ces droits, vous pouvez nous contacter à
+										<a href="mailto:activetontransport@gmail.com">activetontransport@gmail.com</a>.
+									</li>
+
+									<li>
+										<strong>8. Cookies et Technologies Similaires</strong><br>
+										Nous utilisons des cookies et autres technologies similaires pour améliorer l'expérience utilisateur sur notre site web, analyser l'utilisation du site, et personnaliser le contenu. Vous pouvez gérer vos préférences en matière de cookies via les paramètres de votre navigateur.
+									</li>
+
+									<li>
+										<strong>9. Modifications de la Politique de Confidentialité</strong><br>
+										Nous nous réservons le droit de modifier cette politique de confidentialité à tout moment. Toute modification sera publiée sur cette page avec une date de mise à jour. Nous vous encourageons à consulter régulièrement cette page pour rester informé des changements.
+									</li>
+
+									<li>
+										<strong>10. Contact</strong><br>
+										Si vous avez des questions ou des préoccupations concernant cette politique de confidentialité, ou si vous souhaitez exercer vos droits, vous pouvez nous contacter à :
+										<ul>
+											<li>
+												<strong>Active Ton Transport</strong><br>
+												Adresse : 37 avenue Pablo Picasso, Vaulx en Velin, 69120<br>
+												Email :
+												<a href="mailto:activetontransport@gmail.com">activetontransport@gmail.com</a><br>
+												Téléphone : 0602495834
+											</li>
+										</ul>
+									</li>
 								</ul>
 							</div>
 						</div>
 					</div>
 				</section>
-{% endblock %}
+			{% endblock %}

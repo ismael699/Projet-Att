@@ -1,4 +1,24 @@
-// Index profil 
+// Changement de l'input du formulaire register
+document.addEventListener('DOMContentLoaded', function() {
+    const roleInputs = document.querySelectorAll('input[name="user[roles]"]');
+    const submitButton = document.getElementById('submit-button');
+
+    const prices = {
+        'ROLE_CLIENT': 'Payer 10,00 €',
+        'ROLE_CHAUFFEUR': 'Payer 15,00 €'
+    };
+
+    roleInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            const selectedRole = this.value;
+            submitButton.textContent = prices[selectedRole];
+        });
+    });
+});
+
+
+
+// Menu déroulant index du profil 
 document.addEventListener('DOMContentLoaded', function() {
     function toggleMenu(toggleButtonSelector, menuContentSelector, arrowSelector, firstArrow, secondArrow) {
         const menuToggle = document.querySelector(toggleButtonSelector);
@@ -83,4 +103,3 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleMenu(button, menu, arrow, firstArrow, secondArrow);
     });
 });
-

@@ -21,30 +21,22 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class SecurityController extends AbstractController
 {
     #[Route('/login', name: 'app.login', methods: ['GET', 'POST'])]
-    public function login(AuthenticationUtils $authenticationUtils, EntityManagerInterface $entityManager): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // garde le dernier email entré par l'utilisateur
-        $lastEmail = $authenticationUtils->getLastUsername();
+       // garde le dernier email entré par l'utilisateur
+       $lastEmail = $authenticationUtils->getLastUsername();
+       // Récupère l'erreur de connexion s'il y en a une
+       $error = $authenticationUtils->getLastAuthenticationError();
 
-        // vérifie si l'utilisateur existe
-        $user = $entityManager->getRepository(User::class)->findOneBy(['email' => $lastEmail]);
-
-        if ($user) {
-            $payment = $user->getPayment();
-
-            if ($payment && $payment->getStatus() === 'succeeded') {
-                // si le status est "succeeded"
-                return $this->redirectToRoute('app.annonce.index');
-            } else {
-                // sinon
-                $this->addFlash('error', 'Utilisateur non trouvé.');
-                return $this->redirectToRoute('app.register');
-            }
+       // Ajoute un message flash en cas d'erreur
+        if ($error) {
+            $this->addFlash('error', 'Email ou mot de passe incorrect.');
         }
 
-        return $this->render('Security/login.html.twig', [
-            'last_email' => $lastEmail
-        ]);
+       return $this->render('Security/login.html.twig', [
+           'last_email' => $lastEmail,
+           'error' => $error,
+       ]); 
     }
 
     #[Route('/logout', name: 'app.logout')]
@@ -52,14 +44,28 @@ class SecurityController extends AbstractController
     {}
 
     #[Route('/register', name: 'app.register', methods: ['GET', 'POST'])]
-    public function register(Request $request, UserPasswordHasherInterface $passwordHasher, SessionInterface $session): Response
+    public function register(Request $request, UserPasswordHasherInterface $passwordHasher, SessionInterface $session, EntityManagerInterface $em): Response
     {
         $user = new User(); // nouvel utilisateur
 
         $form = $this->createForm(UserType::class, $user); // création du form
-        $form->handleRequest($request);
+        $form->handleRequest($request); // traite les informations
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Vérifier si l'email existe 
+            $email = $em->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
+            if ($email) {
+                $this->addFlash('error', 'L\'email est déjà utilisé.');
+                return $this->redirectToRoute('app.register');
+            }
+
+            // Vérifier si le numéro de Siren existe
+            $siren = $em->getRepository(User::class)->findOneBy(['siren' => $user->getSiren()]);
+            if ($siren) {
+                $this->addFlash('error', 'Le K-bis est déjà utilisé.');
+                return $this->redirectToRoute('app.register');
+            }
+
             $roles = $user->getRoles(); // récupère le rôle choisi par l'utilisateur
             $amount = 0; // prix de base
 
@@ -113,6 +119,7 @@ class SecurityController extends AbstractController
         return $this->render('Security/register.html.twig', [
             'form' => $form->createView(),
         ]);
+
     }
 
     #[Route('/payment/success', name: 'app.payment_success')]

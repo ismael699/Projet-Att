@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Form\AdminUserType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Repository\UserInfosRepository;
@@ -30,7 +31,7 @@ class UserController extends AbstractController
     {
         $user = new User();
 
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(AdminUserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -52,7 +53,7 @@ class UserController extends AbstractController
     #[Route('/{id}/edit', name: '.edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $em): Response 
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(AdminUserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
