@@ -19,11 +19,10 @@ class AnnonceController extends AbstractController
     #[Route('/annonce', name: 'app.annonce.index', methods: ['GET', 'POST'])]
     public function index(Request $request, AnnonceRepository $annoncesRepo): Response
     {   
-        // Création du formulaire de recherche
-        $form = $this->createForm(AnnonceSearchType::class);
+        $form = $this->createForm(AnnonceSearchType::class); // génération du formulaire de recherche
         $form->handleRequest($request);
 
-        $annonces = [];
+        $annonces = []; 
 
         // Vérification si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
@@ -52,7 +51,7 @@ class AnnonceController extends AbstractController
             return $this->redirectToRoute('app.annonce.index');
         }
 
-        // vérifie si l'utilisateur a rempli son profil et s'il à le ['ROLE_CHAUFFEUR'] 
+        // vérifie si l'utilisateur a rempli son profil et s'il à le ['ROLE_CHAUFFEUR'] et ['ROLE_ADMIN']
         if (array_intersect(['ROLE_CHAUFFEUR', 'ROLE_ADMIN'], $user->getRoles()) && (!$user->getUserInfos() || 
             !$user->getUserInfos()->getFirstName() || 
             !$user->getUserInfos()->getLastName() || 
@@ -64,7 +63,7 @@ class AnnonceController extends AbstractController
         }
 
         $annonce = new Annonce();
-        $annonce->setChauffeur($user); // relie l'utilisateur à l'annonce 
+        $annonce->setChauffeur($user); // relie le chauffeur à l'annonce 
 
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);

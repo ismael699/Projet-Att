@@ -18,7 +18,7 @@ class CityController extends AbstractController
     public function index(CityRepository $cityRepo): Response
     {
         return $this->render('Admin/City/index.html.twig', [
-            'cityes' => $cityRepo->findAll(),
+            'cityes' => $cityRepo->findAllOrderedByCreatedAt(),
         ]);
     }
 

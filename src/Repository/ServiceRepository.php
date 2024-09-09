@@ -24,6 +24,16 @@ class ServiceRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    /**
+     * @return Service[] Renvoie un tableau d'objets Service triés par createdAt en ordre décroissant
+     */
+    public function findAllOrderedByCreatedAt()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.createdAt', 'DESC')
+            ->getQuery()->getResult();
+    }
+
     //    /**
     //     * @return Service[] Returns an array of Service objects
     //     */

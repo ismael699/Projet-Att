@@ -23,7 +23,7 @@ class SecurityController extends AbstractController
     #[Route('/login', name: 'app.login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-       // garde le dernier email entré par l'utilisateur
+       // Garde le dernier email entré par l'utilisateur
        $lastEmail = $authenticationUtils->getLastUsername();
        // Récupère l'erreur de connexion s'il y en a une
        $error = $authenticationUtils->getLastAuthenticationError();
@@ -46,20 +46,20 @@ class SecurityController extends AbstractController
     #[Route('/register', name: 'app.register', methods: ['GET', 'POST'])]
     public function register(Request $request, UserPasswordHasherInterface $passwordHasher, SessionInterface $session, EntityManagerInterface $em): Response
     {
-        $user = new User(); // nouvel utilisateur
+        $user = new User(); // créer un nouvel objet utilisateur
 
-        $form = $this->createForm(UserType::class, $user); // création du form
-        $form->handleRequest($request); // traite les informations
+        $form = $this->createForm(UserType::class, $user); // créer du form
+        $form->handleRequest($request); // traite les informations soumises
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Vérifier si l'email existe 
+            // vérifie si l'email existe 
             $email = $em->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
             if ($email) {
                 $this->addFlash('error', 'L\'email est déjà utilisé.');
                 return $this->redirectToRoute('app.register');
             }
 
-            // Vérifier si le numéro de Siren existe
+            // vérifie si le numéro de Siren existe
             $siren = $em->getRepository(User::class)->findOneBy(['siren' => $user->getSiren()]);
             if ($siren) {
                 $this->addFlash('error', 'Le K-bis est déjà utilisé.');
@@ -96,11 +96,11 @@ class SecurityController extends AbstractController
                 'cancel_url' => $this->generateUrl('app.payment_cancel', [], UrlGeneratorInterface::ABSOLUTE_URL),
             ]);
 
-            // Hash le mot de passe sans encore persister l'utilisateur
+            // hash le mot de passe de l'utilisateur
             $hashedPassword = $passwordHasher->hashPassword($user, $form->get('password')->getData());
             $user->setPassword($hashedPassword);
 
-            // Stocke temporairement les données de l'utilisateur dans la session
+            // stocke temporairement les données de l'utilisateur en session
             $session->set('pending_user', [
                 'email' => $user->getEmail(),
                 'password' => $user->getPassword(),
@@ -110,7 +110,7 @@ class SecurityController extends AbstractController
 
             $session->set('pending_user', $user);
 
-            // Stocke le montant du paiement dans la session
+            // stocke le montant du paiement dans la session
             $session->set('pending_payment_amount', $amount);
 
             return $this->redirect($sessionStripe->url, 303);
@@ -130,17 +130,20 @@ class SecurityController extends AbstractController
         $amount = $session->get('pending_payment_amount');
 
         if (!$pendingUserData || !$amount) {
-            throw $this->createNotFoundException('Données utilisateur ou montant du paiement introuvables.');
+            // throw $this->createNotFoundException('Données utilisateur ou montant du paiement introuvables.');
+
+            $this->addFlash('error', 'Données utilisateur ou montant du paiement introuvables.');
+            return $this->redirectToRoute('app.login');
         }
 
-        // Crée l'utilisateur et assigne les données
+        // Création de l'objet utilisateur en lui assignant les données
         $user = new User();
         $user->setEmail($pendingUserData->getEmail());
         $user->setPassword($pendingUserData->getPassword());
         $user->setRoles($pendingUserData->getRoles());
         $user->setSiren($pendingUserData->getSiren());
 
-        // Crée un nouvel objet Payment et l'associe à l'utilisateur
+        // Création de l'objet payment 
         $payment = new Payment();
         $payment->setStatus('succeeded');
         $payment->setPaymentDate(new \DateTime());

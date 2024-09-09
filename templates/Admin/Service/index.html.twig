@@ -30,11 +30,11 @@
                 {% for service in services %}
                 <tr>
                     <td>{{ service.name }}</td>
-                    <td><a href="{{ path('admin.service.edit', {'id': service.id}) }}">Modifier</a></td>
+                    <td><a href="{{ path('admin.service.edit', {'id': service.id}) }}" class="btn-edit">Modifier</a></td>
                     <td>
                         <form method="post" action="{{ path('admin.service.delete', {'id': service.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer çe service ?')" style="display: inline;">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service.id) }}">
-                            <button type="submit">Supprimer</button>
+                            <button type="submit" class="btn-delete">Supprimer</button>
                         </form>
                     </td>
                 </tr>

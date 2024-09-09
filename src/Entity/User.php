@@ -6,9 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use App\Entity\Traits\DateTimeTrait;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -18,11 +16,11 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])] // pour ne pas avoir plusieurs fois le même email en BDD
 #[UniqueEntity(fields: ['siren'], message: 'Informations déjà existantes')] // assure que çe champ reste unique en bdd
-#[ORM\HasLifecycleCallbacks] // ?
+#[ORM\HasLifecycleCallbacks] 
 #[Uploadable] // indique que cette entité est "uploadable"
-class User implements UserInterface, PasswordAuthenticatedUserInterface // ?
+class User implements UserInterface, PasswordAuthenticatedUserInterface 
 {
-    use DateTimeTrait; // ?
+    use DateTimeTrait; 
 
     #[ORM\Id]
     #[ORM\GeneratedValue] // génère automatiquement l'id en bdd

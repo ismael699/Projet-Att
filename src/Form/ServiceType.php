@@ -15,8 +15,8 @@ class ServiceType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => false, // désactive l'affichage du label
-                'required' => true, // rend le champ obligatoire
-                'attr' => ['placeholder' => 'Nom du service'], // ajoute un attribut HTML pour le placeholder
+                'required' => true, 
+                'attr' => ['placeholder' => 'Nom du service'], 
             ])
         ;
     }

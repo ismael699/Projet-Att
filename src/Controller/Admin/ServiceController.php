@@ -18,7 +18,7 @@ class ServiceController extends AbstractController
     public function index(ServiceRepository $serviceRepo): Response
     {
         return $this->render('Admin/Service/index.html.twig', [
-            'services' => $serviceRepo->findAll(),
+            'services' => $serviceRepo->findAllOrderedByCreatedAt(),
         ]);
     }
 
@@ -28,7 +28,7 @@ class ServiceController extends AbstractController
         $service = new Service();
 
         $form = $this->createForm(ServiceType::class, $service);
-        $form->handleRequest($request); //  traite la requête et met à jour l'entité avec les données soumises du formulaire
+        $form->handleRequest($request); 
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($service);
@@ -58,7 +58,6 @@ class ServiceController extends AbstractController
         }
 
         return $this->render('Admin/Service/edit.html.twig', [
-            'user' => $service,
             'form' => $form,
         ]);
     }

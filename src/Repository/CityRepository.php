@@ -24,6 +24,16 @@ class CityRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    /**
+     * @return City[] Renvoie un tableau d'objets City triés par createdAt en ordre décroissant
+     */
+    public function findAllOrderedByCreatedAt()
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.createdAt', 'DESC')
+            ->getQuery()->getResult();
+    }
+
     //    /**
     //     * @return City[] Returns an array of City objects
     //     */

@@ -19,7 +19,7 @@ class AnnonceController extends AbstractController
     public function index(AnnonceRepository $annonceRepo): Response
     {
         return $this->render('Admin/Annonce/index.html.twig', [
-            'annonces' => $annonceRepo->findAll(),
+            'annonces' => $annonceRepo->findAllOrderedByCreatedAt(),
         ]);
     }
 

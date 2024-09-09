@@ -22,14 +22,14 @@ class AnnonceSearchType extends AbstractType
                 'required' => false,
                 'class' => City::class,
                 'choice_label' => 'name',
-                'attr' => ['class' => 'custom-select'], // ajout de la class css
+                'attr' => ['class' => 'custom-select'], 
                 'placeholder' => '.. Paris',
             ])
             ->add('lieu_arrivee', EntityType::class, [
                 'required' => false,
                 'class' => City::class,
                 'choice_label' => 'name',
-                'attr' => ['class' => 'custom-select'], // ajout de la class css
+                'attr' => ['class' => 'custom-select'], 
                 'placeholder' => '.. Lyon',
             ])
             ->add('date', DateType::class, [
@@ -41,11 +41,11 @@ class AnnonceSearchType extends AbstractType
                 'required' => false,
                 'class' => Service::class,
                 'choice_label' => 'name',
-                'attr' => ['class' => 'custom-select'], // ajout de la class css
+                'attr' => ['class' => 'custom-select'], 
             ])
             ->add('search', SubmitType::class, [
                 'label' => 'Rechercher',
-                'attr' => ['class' => 'btn-new'], // ajout de la class css
+                'attr' => ['class' => 'btn-new'], 
             ]);
     }
 

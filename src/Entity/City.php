@@ -2,14 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\CityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Annonce;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CityRepository;
+use App\Entity\Traits\DateTimeTrait;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: CityRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class City
 {
+    use DateTimeTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

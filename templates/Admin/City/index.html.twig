@@ -32,11 +32,11 @@
                 <tr>
                     <td>{{ city.name }}</td>
                     <td class="des-768px">{{ city.code }}</td>
-                    <td><a href="{{ path('admin.city.edit', {'id': city.id}) }}">Modifier</a></td>
+                    <td><a href="{{ path('admin.city.edit', {'id': city.id}) }}" class="btn-edit">Modifier</a></td>
                     <td>
                         <form method="post" action="{{ path('admin.city.delete', {'id': city.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette ville ?')" style="display: inline;">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ city.id) }}">
-                            <button type="submit">Supprimer</button>
+                            <button type="submit" class="btn-delete">Supprimer</button>
                         </form>
                     </td>
                 </tr>

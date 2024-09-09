@@ -13,9 +13,11 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 // Annotation pour définir les propriétés de la commande
 #[AsCommand(
-    name: 'app:import-cities', // Nom de la commande
-    description: 'Importe les villes depuis l\'API geo gouv dans la base de données.' // Description de la commande
+    name: 'app:import-cities', 
+    description: 'Importe les villes depuis l\'API geo gouv dans la base de données.' 
 )] 
+
+// commande : php bin/console app:import-cities 
 
 class ImportCitiesCommand extends Command
 {
@@ -60,8 +62,8 @@ class ImportCitiesCommand extends Command
         // Boucle sur chaque ville retournée par l'API
         foreach ($citiesData as $cityData) {
             $city = new City(); // Création d'un nouvel objet City
-            $city->setName($cityData['nom']); // lui définit un nom 
-            $city->setCode($cityData['code']); // lui définit un code-postal 
+            $city->setName($cityData['nom']); // Ajout d'un nom 
+            $city->setCode($cityData['code']); // Ajout d'un code-postal 
 
             $this->entityManager->persist($city); // Persistance de l'objet City
         }

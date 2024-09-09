@@ -8,3 +8,21 @@
     cursor: pointer;
     width: 100%;
 }
+
+.btn-edit {
+    padding: 5px;
+    border-radius: 10px;
+    color: white;
+    background-color: $color-2;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-delete {
+    padding: 5px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    background-color: red;
+    cursor: pointer;
+}
