@@ -3,11 +3,11 @@
 namespace App\Controller\Backend;
 
 use App\Entity\User;
-use App\Form\UserType;
 use App\Entity\UserInfos;
-use App\Form\EditEmailPasswordType;
 use App\Form\ProfileType;
+use App\Form\EditEmailPasswordType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -19,8 +19,8 @@ class ProfileController extends AbstractController
     public function index(): Response
     {
         /**
-        * @var User $user
-        */
+         * @var User $user
+         */
         $user = $this->getUser(); // récupère l'utilisateur connecté 
         $userInfos = $user->getUserInfos(); // récupère les informations de l'utilisateur
 
@@ -47,7 +47,7 @@ class ProfileController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Profile enregistrées avec succès.');
-            return $this->redirectToRoute('app.profile.index'); 
+            return $this->redirectToRoute('app.profile.index');
         }
 
         return $this->render('Backend/Profile/create.html.twig', [
@@ -56,7 +56,7 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/profile/{id}/edit', name: 'app.profile.edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, UserInfos $userInfos, EntityManagerInterface $em): Response 
+    public function edit(Request $request, UserInfos $userInfos, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(ProfileType::class, $userInfos);
         $form->handleRequest($request);
@@ -75,7 +75,7 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/profile/{id}/edit-user', name: 'app.profile.edit.user', methods: ['GET', 'POST'])]
-    public function editUser(Request $request, User $user, EntityManagerInterface $em): Response 
+    public function editUser(Request $request, User $user, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(EditEmailPasswordType::class, $user);
         $form->handleRequest($request);
@@ -93,25 +93,35 @@ class ProfileController extends AbstractController
         ]);
     }
 
-    //#[Route('/profile/{id}/delete', name: 'app.profile.delete', methods: ['POST'])]
-    //public function deleteUser(User $user, Request $request, EntityManagerInterface $em): Response 
-    //{
-        // if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+    #[Route('/profile/{id}/delete', name: 'app.profile.delete', methods: ['GET', 'POST'])]
+    public function deleteUser(User $user, Request $request, EntityManagerInterface $em, Security $security): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             // Supprimez les entités liées manuellement
-            // if ($user->getUserInfos()) {
-                // $em->remove($user->getUserInfos());
-            // }
-            // if ($user->getPayment()) {
-                // $em->remove($user->getPayment());
-            // }
-            // foreach ($user->getAnnonces() as $annonce) {
-                // $em->remove($annonce);
-            // }
+            if ($user->getUserInfos()) {
+                $em->remove($user->getUserInfos());
+            }
+            if ($user->getPayment()) {
+                $em->remove($user->getPayment());
+            }
+            foreach ($user->getAnnonces() as $annonce) {
+                $em->remove($annonce);
+            }
 
-            // $em->remove($user);
-            // $em->flush();
-        // } 
+            $em->remove($user);
+            $em->flush();
 
-        // return $this->redirectToRoute('app.home');
-    //}
+            $security->logout(false);
+            $this->addFlash('success', 'Votre compte est supprimé.');
+        }
+
+        return $this->redirectToRoute('app.home');
+    }
 }
+
+
+
+
+
+
+

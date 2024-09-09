@@ -237,3 +237,11 @@ $color-5:rgb(61,174,215);
     transform: translateY(30px);
     animation: apparition 0.8s 1.2s ease-out forwards;
 }
+
+/* Form create/edit.profil */
+
+#anim-btn-delete-user {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: apparition 0.8s 2s ease-out forwards;
+}

@@ -10,11 +10,11 @@
 			<div class="d-flex profile-create-edit" id="btn-create-edit-profil">
 				{% if not userInfos %}
 					<a href="{{ path('app.profile.create') }}">
-						Créer le profil
+						Créer mon profil
 					</a>
 				{% else %}
 					<a href="{{ path('app.profile.edit', {'id': userInfos.id}) }}">
-						Modifier le profil
+						Modifier mon profil
 					</a>
 				{% endif %}
 			</div>
@@ -465,5 +465,13 @@
 							</div>
 						</div>
 					</div>
+
+					<div class="btn-delete-user" id="anim-btn-delete-user">
+						<form method="post" action="{{ path('app.profile.delete', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');" style="display: inline;">
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+							<button type="submit">Supprimer mon compte</button>
+						</form>
+					</div>
+
 				</section>
 			{% endblock %}
