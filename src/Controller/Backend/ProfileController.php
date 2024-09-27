@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ProfileController extends AbstractController
 {
@@ -74,12 +75,15 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/profile/{id}/edit-user', name: 'app.profile.edit.user', methods: ['GET', 'POST'])]
-    public function editUser(Request $request, User $user, EntityManagerInterface $em): Response
+    public function editUser(Request $request, User $user, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
     {
         $form = $this->createForm(EditUserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $hashedPassword = $passwordHasher->hashPassword($user, $form->get('password')->getData());
+            $user->setPassword($hashedPassword);
+
             $em->flush();
 
             $this->addFlash('success', 'Informations de connexion modifié avec succès.');
