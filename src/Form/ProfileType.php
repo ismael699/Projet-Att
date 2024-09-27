@@ -17,14 +17,6 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('firstName', TextType::class, [
-            'required' => true, // rend le champ obligatoire
-            'attr' => ['placeholder' => 'John'], // ajoute un attribut HTML pour le placeholder
-        ])
-        ->add('lastName', TextType::class, [
-            'required' => true, // rend le champ obligatoire
-            'attr' => ['placeholder' => 'Doe'], // ajoute un attribut HTML pour le placeholder
-        ])
         ->add('phoneNumber', TextType::class, [
             'required' => true, // rend le champ obligatoire
             'attr' => ['placeholder' => '06 ..'], // ajoute un attribut HTML pour le placeholder

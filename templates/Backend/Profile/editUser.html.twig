@@ -12,16 +12,24 @@
                 <h1>Modification</h1>
                 <div class="form-label-input margin-top-20">
                     {{ form_start(form) }}
+                    <div class="form-group margin-top-20">
+                        <label for="">Nom <span class="little-star">*</span></label>
+                        {{ form_widget(form.lastName) }}
+                    </div>
                     <div class="form-group">
-                        <label for="">Adresse email</label>
+                        <label for="">Prénom <span class="little-star">*</span></label>
+                        {{ form_widget(form.firstName) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Adresse email <span class="little-star">*</span></label>
                         {{ form_widget(form.email) }}
                     </div>
                     <div class="form-group">
-                        <label for="">Mot de passe</label>
+                        <label for="">Mot de passe <span class="little-star">*</span></label>
                         {{ form_widget(form.password.first) }}
                     </div>   
                     <div class="form-group">
-                        <label for="">Confirmation mot de passe</label>
+                        <label for="">Confirmation mot de passe <span class="little-star">*</span></label>
                         {{ form_widget(form.password.second) }}
                     </div>
                     <div class="margin-top-20">

@@ -7,10 +7,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
@@ -19,28 +21,36 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+        ->add('firstName', TextType::class, [
+            'required' => true, 
+            'attr' => ['placeholder' => '...'],
+        ])
+        ->add('lastName', TextType::class, [
+            'required' => true, 
+            'attr' => ['placeholder' => '...'],
+        ])
         ->add('roles', ChoiceType::class, [
-            'label' => false, // cache le label
-            'required' => true, // rend le champ obligatoire
-            'choices' => [ // définit les choix possibles 
+            'label' => false, 
+            'required' => true, 
+            'choices' => [ 
                 'Client' => 'ROLE_CLIENT',
                 'Chauffeur' => 'ROLE_CHAUFFEUR',
             ],
-            'multiple' => false, // refuse la sélection de choix multiple
-            'expanded' => true, // affiche les choix sous forme de case à cocher
+            'multiple' => false, 
+            'expanded' => true, 
         ])
             ->add('email', TextType::class, [
                 'required' => false,
-                'attr' => ['placeholder' => 'email@gmail.com'], // ajoute un attribut HTML pour le placeholder
+                'attr' => ['placeholder' => '@'],
             ])
             ->add('password', RepeatedType::class, [
                 'required' => false, 
                 'mapped' => false,
                 'type' => PasswordType::class,
-                'first_options' => ['attr' => ['placeholder' => 'Entrez votre mot de passe']], 
-                'second_options' => ['attr' => ['placeholder' => 'Veuillez confirmer votre mot de passe']], 
-                'invalid_message' => 'Les mots de passe doivent correspondre.', // message d'erreur
-                'constraints' => [ // ajout de contraintes de validation pour ce champ
+                'first_options' => ['attr' => ['placeholder' => 'Entrez votre mot de passe']],
+                'second_options' => ['attr' => ['placeholder' => 'Confirmez votre mot de passe']],
+                'invalid_message' => 'Les mots de passe doivent correspondre.', 
+                'constraints' => [ 
                     new NotBlank(['message' => 'Veuillez entrer un mot de passe.']),
                     new Regex([
                         'pattern' => '/^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{9,}$/',
@@ -50,9 +60,18 @@ class UserType extends AbstractType
             ])
             ->add('siren', TextType::class, [
                 'required' => true, 
-                'attr' => ['placeholder' => 'Entrez votre numéro de siren'], 
-            ]);
-
+                'attr' => ['placeholder' => '...'],
+            ])
+            ->add('agreeTerms', CheckboxType::class, [
+                'label' => 'J\'ai pris connaissance et j\'accepte les conditions générales d\'utilisation.',
+                'mapped' => false,
+                'constraints' => [
+                    new IsTrue([
+                        'message' => 'Vous devez accepter les règles pour continuer.',
+                    ]),
+                ],
+            ])
+            ;
             $builder->get('roles')
             ->addModelTransformer(new CallbackTransformer(
             function ($rolesArray) {

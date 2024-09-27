@@ -13,11 +13,11 @@
             <h1 id="anim-title-login">Connectez-vous</h1>
             <form action="{{ path('app.login') }}" method="post" class="form-label-input margin-top-20">
                 <div class="form-group">
-                    <label for="#">Adresse email</label>
+                    <label for="#">Adresse email <span class="little-star">*</span></label>
                     <input type="email" id="email" name="_username" value="{{ last_email }}" required autofocus placeholder="email@gmail.com">
                 </div>
                 <div class="form-group">
-                    <label for="#">Mot de passe</label>
+                    <label for="#">Mot de passe <span class="little-star">*</span></label>
                     <input type="password" id="password" name="_password" required placeholder="Entrez votre mot de passe">
                 </div>
                 <div>

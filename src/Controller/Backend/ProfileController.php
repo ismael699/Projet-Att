@@ -5,7 +5,7 @@ namespace App\Controller\Backend;
 use App\Entity\User;
 use App\Entity\UserInfos;
 use App\Form\ProfileType;
-use App\Form\EditEmailPasswordType;
+use App\Form\EditUserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +26,6 @@ class ProfileController extends AbstractController
 
         return $this->render('Backend/Profile/index.html.twig', [
             'userInfos' => $userInfos,
-            'userEmail' => $user->getEmail(),
             'user' => $user,
         ]);
     }
@@ -77,7 +76,7 @@ class ProfileController extends AbstractController
     #[Route('/profile/{id}/edit-user', name: 'app.profile.edit.user', methods: ['GET', 'POST'])]
     public function editUser(Request $request, User $user, EntityManagerInterface $em): Response
     {
-        $form = $this->createForm(EditEmailPasswordType::class, $user);
+        $form = $this->createForm(EditUserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -114,7 +113,6 @@ class ProfileController extends AbstractController
             $security->logout(false);
             $this->addFlash('success', 'Votre compte est supprimé.');
         }
-
         return $this->redirectToRoute('app.home');
     }
 }

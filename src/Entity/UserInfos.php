@@ -21,16 +21,6 @@ class UserInfos
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    #[Assert\Length(max: 255)] 
-    #[Assert\NotBlank()] // empêche la soumission du form vide
-    private ?string $firstName = null;
-
-    #[ORM\Column(length: 255)]
-    #[Assert\Length(max: 255)]
-    #[Assert\NotBlank()] // empêche la soumission du form vide
-    private ?string $lastName = null;
-
     #[ORM\Column(length: 20)]
     #[Assert\Length(max: 20)] // chaine 20 caractères max
     #[Assert\NotBlank()] // empêche la soumission du form vide
@@ -61,8 +51,6 @@ class UserInfos
     {
         return [
             'id' => $this->id,
-            'firstName' => $this->firstName,
-            'lastName' => $this->lastName,
             'phoneNumber' => $this->phoneNumber,
             'photoName' => $this->photoName,
             'drivingLicenseName' => $this->drivingLicenseName,
@@ -74,8 +62,6 @@ class UserInfos
     public function __unserialize(array $data): void
     {
         $this->id = $data['id'] ?? null;
-        $this->firstName = $data['firstName'] ?? null;
-        $this->lastName = $data['lastName'] ?? null;
         $this->phoneNumber = $data['phoneNumber'] ?? null;
         $this->photoName = $data['photoName'] ?? null;
         $this->drivingLicenseName = $data['drivingLicenseName'] ?? null;
@@ -86,30 +72,6 @@ class UserInfos
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName(string $firstName): static
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    public function getLastName(): ?string
-    {
-        return $this->lastName;
-    }
-
-    public function setLastName(string $lastName): static
-    {
-        $this->lastName = $lastName;
-
-        return $this;
     }
 
     public function getPhoneNumber(): ?string

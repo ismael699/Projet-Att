@@ -75,6 +75,25 @@ class SecurityController extends AbstractController
                 $amount = 1500; // 15.00 euro
             }
 
+            // hash le mot de passe de l'utilisateur
+            $hashedPassword = $passwordHasher->hashPassword($user, $form->get('password')->getData());
+            $user->setPassword($hashedPassword);
+
+            // stocke temporairement les données de l'utilisateur en session
+            $session->set('pending_user', [
+                'firstName' => $user->getFirstName(),
+                'lastName' => $user->getlastName(),
+                'email' => $user->getEmail(),
+                'password' => $user->getPassword(),
+                'roles' => $user->getRoles(),
+                'siren' => $user->getSiren(),
+            ]);
+
+            $session->set('pending_user', $user);
+
+            // stocke le montant du paiement dans la session
+            $session->set('pending_payment_amount', $amount);
+
             // création la session stripe avec le montant calculé
             Stripe::setApiKey($this->getParameter('stripe_secret_key')); 
 
@@ -95,23 +114,6 @@ class SecurityController extends AbstractController
                 'success_url' => $this->generateUrl('app.payment_success', [], UrlGeneratorInterface::ABSOLUTE_URL),
                 'cancel_url' => $this->generateUrl('app.payment_cancel', [], UrlGeneratorInterface::ABSOLUTE_URL),
             ]);
-
-            // hash le mot de passe de l'utilisateur
-            $hashedPassword = $passwordHasher->hashPassword($user, $form->get('password')->getData());
-            $user->setPassword($hashedPassword);
-
-            // stocke temporairement les données de l'utilisateur en session
-            $session->set('pending_user', [
-                'email' => $user->getEmail(),
-                'password' => $user->getPassword(),
-                'roles' => $user->getRoles(),
-                'siren' => $user->getSiren(),
-            ]);
-
-            $session->set('pending_user', $user);
-
-            // stocke le montant du paiement dans la session
-            $session->set('pending_payment_amount', $amount);
 
             return $this->redirect($sessionStripe->url, 303);
         }
@@ -138,6 +140,8 @@ class SecurityController extends AbstractController
 
         // Création de l'objet utilisateur en lui assignant les données
         $user = new User();
+        $user->setFirstName($pendingUserData->getFirstName());
+        $user->setlastName($pendingUserData->getlastName());
         $user->setEmail($pendingUserData->getEmail());
         $user->setPassword($pendingUserData->getPassword());
         $user->setRoles($pendingUserData->getRoles());

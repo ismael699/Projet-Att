@@ -39,9 +39,9 @@
                 <tr>
                     <td>{{ user.email }}</td>
                     <td class="des-768px">{{ user.siren }}</td>
+                    <td class="des-768px">{{ user.firstName }}</td>
+                    <td class="des-768px">{{ user.lastName }}</td>
                         {% if user.userInfos %}
-                            <td class="des-768px">{{ user.userInfos.firstName }}</td>
-                            <td class="des-768px">{{ user.userInfos.lastName }}</td>
                             <td class="des-768px">{{ user.userInfos.phoneNumber }}</td>
                             <td class="des-768px">
                                 <a href="{{ asset('images/photo/' ~ user.userInfos.photoName) }}" target="_blank">
@@ -61,8 +61,6 @@
                                 </a>
                             </td>   
                         {% else %}
-                            <td class="des-768px"></td>
-                            <td class="des-768px"></td>
                             <td class="des-768px"></td>
                             <td class="des-768px"></td>
                             <td class="des-768px"></td>

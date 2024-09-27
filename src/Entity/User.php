@@ -27,6 +27,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column] // correspond à une colonne en bdd
     private ?int $id = null;
 
+    #[ORM\Column(length: 255)]
+    #[Assert\Length(max: 255)] 
+    #[Assert\NotBlank()] // empêche la soumission du form vide
+    private ?string $firstName = null;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\Length(max: 255)]
+    #[Assert\NotBlank()] // empêche la soumission du form vide
+    private ?string $lastName = null;
+
     #[ORM\Column(length: 180)] // colonne de max 180 caractères
     #[Assert\Length(max: 180)] // chaine 180 caractères max
     #[Assert\NotBlank(message: 'L\'adresse email ne peut pas être vide.')] 
@@ -74,35 +84,59 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->annonces = new ArrayCollection();
     }
 
-    public function __serialize(): array
-    {
-        return [
-            'id' => $this->id,
-            'email' => $this->email,
-            'roles' => $this->roles,
-            'password' => $this->password,
-            'siren' => $this->siren,
-            'payment' => $this->payment,
-            'updatedAt' => $this->updatedAt,
-            'UserInfos' => $this->UserInfos,
-        ];
-    }
+    // public function __serialize(): array
+    // {
+        // return [
+            // 'id' => $this->id,
+            // 'email' => $this->email,
+            // 'roles' => $this->roles,
+            // 'password' => $this->password,
+            // 'siren' => $this->siren,
+            // 'payment' => $this->payment,
+            // 'updatedAt' => $this->updatedAt,
+            // 'UserInfos' => $this->UserInfos,
+        // ];
+    // }
 
-    public function __unserialize(array $data): void
-    {
-        $this->id = $data['id'] ?? null;
-        $this->email = $data['email'] ?? null;
-        $this->roles = $data['roles'] ?? [];
-        $this->password = $data['password'] ?? null;
-        $this->siren = $data['siren'] ?? null;
-        $this->payment = $data['payment'] ?? null;
-        $this->updatedAt = $data['updatedAt'] ?? null;
-        $this->UserInfos = $data['UserInfos'] ?? null;
-    }
+    // public function __unserialize(array $data): void
+    // {
+        // $this->id = $data['id'] ?? null;
+        // $this->email = $data['email'] ?? null;
+        // $this->roles = $data['roles'] ?? [];
+        // $this->password = $data['password'] ?? null;
+        // $this->siren = $data['siren'] ?? null;
+        // $this->payment = $data['payment'] ?? null;
+        // $this->updatedAt = $data['updatedAt'] ?? null;
+        // $this->UserInfos = $data['UserInfos'] ?? null;
+    // }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): static
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): static
+    {
+        $this->lastName = $lastName;
+
+        return $this;
     }
 
     public function getEmail(): ?string

@@ -21,11 +21,11 @@
 			{% if userInfos %}
 				<div id="img-name-profil">
 					<div class="profile-img">
-						<img src="{{ asset('images/photo/' ~ userInfos.photoName) }}" alt="Photo de profile de {{ userInfos.firstName }}">
+						<img src="{{ asset('images/photo/' ~ userInfos.photoName) }}" alt="Photo de profile de {{ user.firstName }}">
 					</div>
 					<div class="profile-img-name margin-top-15">
-						<p class="f-size-17">{{ userInfos.lastName }}
-							{{ userInfos.firstName }}</p>
+						<p class="f-size-17">{{ user.lastName }}
+							{{ user.firstName }}</p>
 					</div>
 				</div>
 
@@ -49,7 +49,7 @@
 								<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" fill="currentColor" class="size-4">
 									<path fill-rule="evenodd" d="M11.89 4.111a5.5 5.5 0 1 0 0 7.778.75.75 0 1 1 1.06 1.061A7 7 0 1 1 15 8a2.5 2.5 0 0 1-4.083 1.935A3.5 3.5 0 1 1 11.5 8a1 1 0 0 0 2 0 5.48 5.48 0 0 0-1.61-3.889ZM10 8a2 2 0 1 0-4 0 2 2 0 0 0 4 0Z" clip-rule="evenodd"/>
 								</svg>
-								{{ userEmail }}
+								{{ user.email }}
 							</li>
 							<li class="d-flex align-item-center gap-8">
 								<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" fill="currentColor" class="size-4">
@@ -77,18 +77,6 @@
 						<ul>
 							<li class="d-flex align-item-center gap-8">
 								<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" fill="currentColor" class="size-4">
-									<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z"/>
-								</svg>
-								{{ userInfos.lastName }}
-							</li>
-							<li class="d-flex align-item-center gap-8">
-								<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" fill="currentColor" class="size-4">
-									<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z"/>
-								</svg>
-								{{ userInfos.firstName }}
-							</li>
-							<li class="d-flex align-item-center gap-8">
-								<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" fill="currentColor" class="size-4">
 									<path fill-rule="evenodd" d="m3.855 7.286 1.067-.534a1 1 0 0 0 .542-1.046l-.44-2.858A1 1 0 0 0 4.036 2H3a1 1 0 0 0-1 1v2c0 .709.082 1.4.238 2.062a9.012 9.012 0 0 0 6.7 6.7A9.024 9.024 0 0 0 11 14h2a1 1 0 0 0 1-1v-1.036a1 1 0 0 0-.848-.988l-2.858-.44a1 1 0 0 0-1.046.542l-.534 1.067a7.52 7.52 0 0 1-4.86-4.859Z" clip-rule="evenodd"/>
 								</svg>
 								{{ userInfos.phoneNumber }}
@@ -113,6 +101,10 @@
 							<div class="profile-img">
 								<img src="https://via.placeholder.com/150?text=User" alt="Photo de profile de l'utilisateur.">
 							</div>
+							<div class="profile-img-name margin-top-15">
+								<p class="f-size-17">{{ user.lastName }}
+									{{ user.firstName }}</p>
+							</div>
 							<div class="menu-list-infos margin-top-50">
 								<p class="bold" id="title-mes-infos">Mes informations</p>
 								<button class="first-button-infos menu-button-infos" id="btn-mes-infos">
@@ -134,7 +126,7 @@
 											<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" fill="currentColor" class="size-4">
 												<path fill-rule="evenodd" d="M11.89 4.111a5.5 5.5 0 1 0 0 7.778.75.75 0 1 1 1.06 1.061A7 7 0 1 1 15 8a2.5 2.5 0 0 1-4.083 1.935A3.5 3.5 0 1 1 11.5 8a1 1 0 0 0 2 0 5.48 5.48 0 0 0-1.61-3.889ZM10 8a2 2 0 1 0-4 0 2 2 0 0 0 4 0Z" clip-rule="evenodd"/>
 											</svg>
-											{{ userEmail }}
+											{{ user.email }}
 										</li>
 										<li class="d-flex align-item-center gap-8">
 											<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" fill="currentColor" class="size-4">

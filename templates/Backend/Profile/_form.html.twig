@@ -9,32 +9,22 @@
                 {{ form_start(form) }}
                 <div id="anim-form-user">
                 <div class="form-group file-input-container">
-                    <label for="{{ form.photoFile.vars.id }}" class="file-label">Ajouter une photo de profile</label>
+                    <label for="{{ form.photoFile.vars.id }}" class="file-label">Ajouter une photo de profile <span class="little-star">*</span></label>
                     {{ form_widget(form.photoFile) }}
                 </div>
-                
-                <div class="form-group margin-top-20">
-                    <label for="">Nom</label>
-                    {{ form_widget(form.lastName) }}
-                </div>
 
                 <div class="form-group">
-                    <label for="">Prénom</label>
-                    {{ form_widget(form.firstName) }}
-                </div>
-
-                <div class="form-group">
-                    <label for="">Numéro de téléphone 🇫🇷</label>
+                    <label for="">Numéro de téléphone 🇫🇷 <span class="little-star">*</span></label>
                     {{ form_widget(form.phoneNumber) }}
                 </div>
                 
                 <div class="form-group file-input-container">
-                    <label for="{{ form.drivingLicenseFile.vars.id }}" class="file-label">Permis de conduire en PDF</label>
+                    <label for="{{ form.drivingLicenseFile.vars.id }}" class="file-label">Permis de conduire en PDF <span class="little-star">*</span></label>
                     {{ form_widget(form.drivingLicenseFile) }}
                 </div>
 
                 <div class="form-group file-input-container">
-                    <label for="{{ form.file.vars.id }}" class="file-label">K-bis en PDF</label>
+                    <label for="{{ form.file.vars.id }}" class="file-label">K-bis en PDF <span class="little-star">*</span></label>
                     {{ form_widget(form.file) }}
                 </div>
                 </div>
