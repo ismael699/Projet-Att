@@ -20,14 +20,13 @@
     
             <div class="margin-top-30 padding-bottom-150">
                 <p class="margin-bottom-5" id="anim-title-annonce-2">Chauffeurs disponible</p>
-
                 {% if annonces|length > 0 %}
                     {% for annonce in annonces %}
                     <div class="menu-list-infos" id="anim-list-annonces">
                         <button class="menu-button-infos annonce-second-button-infos">
                             <div class="d-flex align-item-center gap-8">
                                 <img src="{{ asset('images/photo/' ~ annonce.chauffeur.userInfos.photoName) }}" alt="Photo du chauffeur." class="img-annonce-list">
-                                {{ annonce.chauffeur.userInfos.firstName }} {{ annonce.chauffeur.userInfos.lastName }}
+                                {{ annonce.chauffeur.firstName }} {{ annonce.chauffeur.lastName }}
                             </div>
                             <span class="arrow-info annonce-arrow">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">

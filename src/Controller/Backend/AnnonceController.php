@@ -53,8 +53,6 @@ class AnnonceController extends AbstractController
 
         // vérifie si l'utilisateur a rempli son profil et s'il à le ['ROLE_CHAUFFEUR'] et ['ROLE_ADMIN']
         if (array_intersect(['ROLE_CHAUFFEUR', 'ROLE_ADMIN'], $user->getRoles()) && (!$user->getUserInfos() || 
-            !$user->getUserInfos()->getFirstName() || 
-            !$user->getUserInfos()->getLastName() || 
             !$user->getUserInfos()->getPhoneNumber())) 
             {
 
