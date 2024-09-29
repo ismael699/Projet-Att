@@ -32,8 +32,8 @@ class Annonce
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'annonces')]
-    private ?User $chauffeur = null;
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'annonces')]
+    private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'annonces')]
     private ?Service $service = null;
@@ -105,14 +105,14 @@ class Annonce
         return $this;
     }
 
-    public function getChauffeur(): ?User
+    public function getUser(): ?User
     {
-        return $this->chauffeur;
+        return $this->user;
     }
 
-    public function setChauffeur(?User $chauffeur): static
+    public function setUser(?User $user): static
     {
-        $this->chauffeur = $chauffeur;
+        $this->user = $user;
 
         return $this;
     }

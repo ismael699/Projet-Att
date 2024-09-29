@@ -14,7 +14,17 @@
             <div class="form-label-input margin-top-20">
                 {{ form_start(form) }}
 
-                <div class="choice-roles">
+                <div class="form-group">
+                    <label for="">Prénom</label>
+                    {{ form_widget(form.firstName) }}
+                </div>
+
+                <div class="form-group">
+                    <label for="">Nom</label>
+                    {{ form_widget(form.lastName) }}
+                </div>
+
+                <div class="choice-roles margin-top-20">
                     {{ form_row(form.roles) }} 
                 </div>
 
@@ -39,27 +49,17 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="">Prénom</label>
-                    {{ form_widget(form.UserInfos.firstName) }}
-                </div>
-
-                <div class="form-group">
-                    <label for="">Nom</label>
-                    {{ form_widget(form.UserInfos.lastName) }}
-                </div>
-
-                <div class="form-group">
                     <label for="">Numéro de téléphone</label>
                     {{ form_widget(form.UserInfos.phoneNumber) }}
                 </div>
 
                 <div class="form-group file-input-container">
-                    <label for="{{ form.UserInfos.file.vars.id }}" class="file-label">K-bis</label>
+                    <label for="{{ form.UserInfos.file.vars.id }}" class="file-label">K-bis en PDF</label>
                     {{ form_widget(form.UserInfos.file) }}
                 </div>
 
                 <div class="form-group file-input-container">
-                    <label for="{{ form.UserInfos.drivingLicenseFile.vars.id }}" class="file-label">Permis de conduire</label>
+                    <label for="{{ form.UserInfos.drivingLicenseFile.vars.id }}" class="file-label">Permis de conduire en PDF</label>
                     {{ form_widget(form.UserInfos.drivingLicenseFile) }}
                 </div>
 

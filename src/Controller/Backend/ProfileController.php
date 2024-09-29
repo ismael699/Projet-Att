@@ -6,6 +6,9 @@ use App\Entity\User;
 use App\Entity\UserInfos;
 use App\Form\ProfileType;
 use App\Form\EditUserType;
+
+use Symfony\Component\Form\FormError;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,6 +26,12 @@ class ProfileController extends AbstractController
          * @var User $user
          */
         $user = $this->getUser(); // récupère l'utilisateur connecté 
+
+        if (!$user) {
+            $this->addFlash('error', 'Vous devez être connecté pour accéder à cette page.');
+            return $this->redirectToRoute('login'); // Assurez-vous que 'login' est la route correcte pour la page de connexion
+        }
+
         $userInfos = $user->getUserInfos(); // récupère les informations de l'utilisateur
 
         return $this->render('Backend/Profile/index.html.twig', [
@@ -81,13 +90,21 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $hashedPassword = $passwordHasher->hashPassword($user, $form->get('password')->getData());
-            $user->setPassword($hashedPassword);
+            // Vérifie si l'email existe déjà
+            $existingUser = $em->getRepository(User::class)->findOneBy(['email' => $form->get('email')->getData()]);
+            if ($existingUser && $existingUser->getId() !== $user->getId()) {
+                $this->addFlash('error', 'Une erreur c\'est produite.');
+            } else {
+                if ($form->get('password')->getData()) {
+                    $hashedPassword = $passwordHasher->hashPassword($user, $form->get('password')->getData());
+                    $user->setPassword($hashedPassword);
+                }
 
-            $em->flush();
+                $em->flush();
 
-            $this->addFlash('success', 'Informations de connexion modifié avec succès.');
-            return $this->redirectToRoute('app.profile.index');
+                $this->addFlash('success', 'Informations de connexion modifié avec succès.');
+                return $this->redirectToRoute('app.profile.index');
+            }
         }
 
         return $this->render('Backend/Profile/editUser.html.twig', [

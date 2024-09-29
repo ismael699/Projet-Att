@@ -76,7 +76,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Annonce>
      */
-    #[ORM\OneToMany(targetEntity: Annonce::class, mappedBy: 'chauffeur')]
+    #[ORM\OneToMany(targetEntity: Annonce::class, mappedBy: 'user', cascade: ['remove'])]
     private Collection $annonces;
 
     public function __construct()
@@ -263,7 +263,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->annonces->contains($annonce)) {
             $this->annonces->add($annonce);
-            $annonce->setChauffeur($this);
+            $annonce->setUser($this);
         }
 
         return $this;
@@ -273,8 +273,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->annonces->removeElement($annonce)) {
             // set the owning side to null (unless already changed)
-            if ($annonce->getChauffeur() === $this) {
-                $annonce->setChauffeur(null);
+            if ($annonce->getUser() === $this) {
+                $annonce->setUser(null);
             }
         }
 

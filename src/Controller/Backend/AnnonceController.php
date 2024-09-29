@@ -61,7 +61,7 @@ class AnnonceController extends AbstractController
         }
 
         $annonce = new Annonce();
-        $annonce->setChauffeur($user); // relie le chauffeur à l'annonce 
+        $annonce->setUser($user); // relie le chauffeur à l'annonce 
 
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
