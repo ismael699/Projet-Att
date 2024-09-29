@@ -47,9 +47,16 @@ class Annonce
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
+    /**
+     * @var Collection<int, Conversation>
+     */
+    #[ORM\OneToMany(targetEntity: Conversation::class, mappedBy: 'annonce', cascade: ['persist', 'remove'])]
+    private Collection $conversations;
+
     public function __construct()
     {
         $this->cities = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -164,6 +171,35 @@ class Annonce
     public function setTitle(string $title): static
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Conversation>
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): self
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations[] = $conversation;
+            $conversation->setAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): self
+    {
+        if ($this->conversations->removeElement($conversation)) {
+            if ($conversation->getAnnonce() === $this) {
+                $conversation->setAnnonce(null);
+            }
+        }
 
         return $this;
     }

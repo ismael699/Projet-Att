@@ -8,6 +8,7 @@ use App\Form\AnnonceType;
 use App\Form\AnnonceSearchType;
 use App\Repository\AnnonceRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ConversationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -17,13 +18,11 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class AnnonceController extends AbstractController
 {
     #[Route('/annonce', name: 'app.annonce.index', methods: ['GET', 'POST'])]
-    public function index(Request $request, AnnonceRepository $annoncesRepo): Response
+    public function index(Request $request, AnnonceRepository $annoncesRepo, ConversationRepository $conversationRepo): Response
     {   
         $form = $this->createForm(AnnonceSearchType::class); // génération du formulaire de recherche
         $form->handleRequest($request);
-
         $annonces = []; 
-
         // Vérification si le formulaire est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
@@ -34,9 +33,18 @@ class AnnonceController extends AbstractController
             $annonces = $annoncesRepo->findAllOrderedByCreatedAt();
         }
 
+        $user = $this->getUser(); // Récupération de l'utilisateur connecté
+        if ($user) { // Vérification si l'utilisateur est connecté
+            // Récupération des conversations de l'utilisateur connecté
+            $conversations = $conversationRepo->findBy(['creator' => $user]);  // Ajuste le champ 'creator' selon ta logique
+        } else {
+            $conversations = [];  // Pas d'utilisateur connecté, pas de conversations
+        }
+
         return $this->render('Backend/Annonce/index.html.twig', [
             'form' => $form->createView(),
             'annonces' => $annonces,
+            'conversations' => $conversations,
         ]);
     }
 

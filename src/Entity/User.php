@@ -79,36 +79,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Annonce::class, mappedBy: 'user', cascade: ['remove'])]
     private Collection $annonces;
 
+    /**
+     * @var Collection<int, Conversation>
+     */
+    #[ORM\OneToMany(targetEntity: Conversation::class, mappedBy: 'creator')]
+    private Collection $conversations;
+
+    /**
+     * @var Collection<int, Message>
+     */
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'sender')]
+    private Collection $messages;
+
     public function __construct()
     {
         $this->annonces = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
-
-    // public function __serialize(): array
-    // {
-        // return [
-            // 'id' => $this->id,
-            // 'email' => $this->email,
-            // 'roles' => $this->roles,
-            // 'password' => $this->password,
-            // 'siren' => $this->siren,
-            // 'payment' => $this->payment,
-            // 'updatedAt' => $this->updatedAt,
-            // 'UserInfos' => $this->UserInfos,
-        // ];
-    // }
-
-    // public function __unserialize(array $data): void
-    // {
-        // $this->id = $data['id'] ?? null;
-        // $this->email = $data['email'] ?? null;
-        // $this->roles = $data['roles'] ?? [];
-        // $this->password = $data['password'] ?? null;
-        // $this->siren = $data['siren'] ?? null;
-        // $this->payment = $data['payment'] ?? null;
-        // $this->updatedAt = $data['updatedAt'] ?? null;
-        // $this->UserInfos = $data['UserInfos'] ?? null;
-    // }
 
     public function getId(): ?int
     {
@@ -275,6 +263,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($annonce->getUser() === $this) {
                 $annonce->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Conversation>
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): static
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations->add($conversation);
+            $conversation->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): static
+    {
+        if ($this->conversations->removeElement($conversation)) {
+            // set the owning side to null (unless already changed)
+            if ($conversation->getCreator() === $this) {
+                $conversation->setCreator(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): static
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages->add($message);
+            $message->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): static
+    {
+        if ($this->messages->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getSender() === $this) {
+                $message->setSender(null);
             }
         }
 

@@ -59,6 +59,9 @@
                                 <span class="bold">Lieu d'arrivée :</span>
                                 <p>{{ annonce.lieuArrivee }}</p>
                             </div>
+                            <div class="d-flex gap-8 padding-10">
+                                <a href="{{ path('app.conversation.new', {'id': annonce.id}) }}">Contacter</a>
+                            </div>
                         </div>
                     </div>
                     {% endfor %}

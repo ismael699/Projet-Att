@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes messages{% endblock %}
+
+{% block body %}
+{% include "Layout/nav.html.twig" %}
+
+    <h1>Liste des messages</h1>
+
+    <ul>
+        {% for conversation in conversations %}
+            <li>
+                {{ conversation.id }} - {{ conversation.annonce.title }}
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
