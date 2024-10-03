@@ -1,18 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mes messages{% endblock %}
+{% block title %}Mes conversation{% endblock %}
 
 {% block body %}
 {% include "Layout/nav.html.twig" %}
 
-    <h1>Liste des messages</h1>
+    <h1>Mes conversation</h1>
 
     <ul>
-        {% for conversation in conversations %}
-            <li>
-                {{ conversation.id }} - {{ conversation.annonce.title }}
-            </li>
-        {% endfor %}
+        {% if conversations %}
+            {% for conversation in conversations %}
+                <li>
+                    <a href="{{ path('app.conversation.show', { id: conversation.id }) }}">
+                        <img src="{{ asset('images/photo/' ~ conversation.annonce.user.userInfos.photoName) }}" alt="" height="80px">
+                        {{ conversation.annonce.title }} - 
+
+                        Dernier message: 
+                        {% if conversation.getLastMessage() %}
+                            {{ conversation.getLastMessage().content }}
+                        {% else %}
+                            Pas de message
+                        {% endif %}
+                        
+                    </a>
+                </li>
+            {% endfor %}
+        {% else %}
+            <li>Aucune conversation trouvée.</li>
+        {% endif %}
     </ul>
 
 {% endblock %}

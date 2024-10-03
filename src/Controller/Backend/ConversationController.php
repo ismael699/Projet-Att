@@ -1,14 +1,17 @@
 <?php
 
 namespace App\Controller\Backend;
-
+ 
+use DateTimeImmutable;
 use App\Entity\Annonce;
 use App\Entity\Message;
+use App\Form\MessageType;
 use App\Entity\Conversation;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ConversationController extends AbstractController
@@ -17,23 +20,57 @@ class ConversationController extends AbstractController
     public function index(EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
-        $conversations = $em->getRepository(Conversation::class)->findBy(['creator' => $user]); // Récupération des conversations créées par l'utilisateur connecté
+
+        // Récupération des conversations créées par l'utilisateur connecté
+        $createdConversations = $em->getRepository(Conversation::class)->findBy(['creator' => $user]);
+
+        // Récupération des conversations associées aux annonces dont l'utilisateur est le propriétaire
+        $ownedConversations = $em->getRepository(Conversation::class)
+            ->createQueryBuilder('c')
+            ->innerJoin('c.annonce', 'a') // Liaison à l'entité Annonce
+            ->where('a.user = :user') // Utilisez 'user' pour correspondre à la propriété de l'entité Annonce
+            ->setParameter('user', $user)
+            // ->orderBy('c.createdAt', 'DESC') // Trier par la date de création du message le plus récent
+            ->getQuery()
+            ->getResult();
+
+        // Fusionner les deux ensembles de conversations
+        $conversations = array_merge($createdConversations, $ownedConversations);
+
+        // Trier les conversations par la date du dernier message
+        usort($conversations, function (Conversation $a, Conversation $b) {
+            $lastMessageA = $a->getLastMessage();
+            $lastMessageB = $b->getLastMessage();
+
+            if ($lastMessageA === null && $lastMessageB === null) {
+                return 0;
+            }
+
+            if ($lastMessageA === null) {
+                return 1;
+            }
+
+            if ($lastMessageB === null) {
+                return -1;
+            }
+
+            return $lastMessageB->getCreatedAt() <=> $lastMessageA->getCreatedAt();
+        });
 
         return $this->render('Backend/Conversation/index.html.twig', [
             'conversations' => $conversations, // Récupération des conversations liées à l'utilisateur connecté
         ]);
     }
 
-    #[Route('/conversation/{id}', name: 'app.conversation.new')]
-    public function newConversation($id, EntityManagerInterface $em): Response
+    #[Route('/annonce/{id}/conversation/new', name: 'app.conversation.new')]
+    public function newConversation(#[MapEntity(id: 'id')] ?Annonce $annonce, EntityManagerInterface $em): Response 
+    // "?Annonce Annonce" c'est le param converter, ça permet d'aller chercher dans la base de donnée un objet Annonce ayant l'ID des paramètres de l'url, 
+    // et si il n'existe pas le code va continuer car il y a un point d'interrogation
     {
-        //dd($id);
-
-        $annonce = $em->getRepository(Annonce::class)->find($id); // Récupération de l'annonce à partir de son id  
         $user = $this->getUser(); // Récupération de l'utilisateur connecté  
 
-        // dd($annonce);
         if (!$annonce) {
+            dd("L'annonce n'existe pas");
             throw $this->createNotFoundException('Annonce introuvable');
         }
 
@@ -43,51 +80,57 @@ class ConversationController extends AbstractController
         if (!$conversation) {
             // Si la conversation n'existe pas, on en crée une nouvelle
             $conversation = new Conversation();
-            $conversation->setAnnonce($annonce); 
-            $conversation->setCreator($user); 
-            //$annonce->addConversation($conversation);  // Ajout de la conversation à l'annonce
-
+            $conversation->setAnnonce($annonce)
+                         ->setCreator($user); 
+            
+            // Et on crée un message par défaut
+            $message = new Message();
+            $message->setCreatedAt(new DateTimeImmutable())
+                    ->setSender($user)
+                    ->setContent('Bonjour, êtes-vous disponible ?')
+                    ->setConversation($conversation);
+            
+            $em->persist($message);
             $em->persist($conversation);
-            $em->persist($annonce);
             $em->flush();
-        }
+        };
 
-        return $this->redirectToRoute('app.conversation.show', [
-            'id' => $conversation->getId()
-        ]);
+        $this->addFlash('success', 'Message envoyé avec succès.');
+        return $this->redirectToRoute('app.annonce.index');
     }
 
     #[Route('/conversation/{id}', name: 'app.conversation.show')]
-    public function showConversation($id, EntityManagerInterface $em): Response
+    public function messageConversation($id, EntityManagerInterface $em, Request $request): Response
     {
         $conversation = $em->getRepository(Conversation::class)->find($id); // Récupération de la conversation à partir de son id 
 
         if (!$conversation) {
             $this->addFlash('error', 'La conversation n\'existe pas.');
+            return $this->redirectToRoute('app.conversation');
         }
 
+        // Créer un nouveau formulaire de message
+        $user = $this->getUser(); 
+        $form = $this->createForm(MessageType::class);
+        $form->handleRequest($request); 
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $message = $form->getData();
+            $message->setConversation($conversation); 
+            $message->setSender($user); 
+            $message->setCreatedAtValue(new \DateTime()); 
+
+            $em->persist($message); 
+            $em->flush(); 
+        }
+
+        // Créer le paiement
+        
+
         return $this->render('Backend/Conversation/show.html.twig', [
+            'form' => $form->createView(),
             'conversation' => $conversation,
-        ]);
-    }
-
-    #[Route('/conversation/{id}/message', name: 'app.conversation.send', methods: ['POST'])]
-    public function sendMessage($id, Request $request, EntityManagerInterface $em): Response
-    {
-        $conversation = $em->getRepository(Conversation::class)->find($id); // Récupération de la conversation à partir de son id
-        $user = $this->getUser(); // Récupération de l'utilisateur connecté
-
-        $message = new Message(); // Création d'un nouveau message
-        $message->setConversation($conversation); // Liaison du message à la conversation
-        $message->setSender($user); // Liaison du message à l'utilisateur qui envoie le message
-        $message->setContent($request->request->get('content')); // Récupération du contenu du message depuis la requête
-        $message->setCreatedAtValue(new \DateTime()); // Définition de la date de création du message
-
-        $em->persist($message); 
-        $em->flush(); 
-
-        return $this->redirectToRoute('app.conversation.show', [
-            'id' => $conversation->getId()
+            'messages' => $conversation->getMessages(), // Récupération des messages de la conversation
         ]);
     }
 }

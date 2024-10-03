@@ -92,4 +92,9 @@ class Conversation
 
         return $this;
     }
+
+    public function getLastMessage(): ?Message
+    {
+        return $this->messages->last() ?: null;
+    }
 }

@@ -1,23 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Annonces{% endblock %}
+{% block title %}Conversation{% endblock %}
 
 {% block body %}
-    <h1>Conversation avec {{ conversation.creator.name }}</h1>
-    
-    <div>
-        {# Affichage de chaque message de la conversation #}
-        {% for message in conversation.messages %}
-            <div>
-                <strong>{{ message.sender.name }}:</strong> {{ message.content }}  {# Affiche le nom de l'utilisateur et le contenu du message #}
-                <em>{{ message.createdAt|date('Y-m-d H:i') }}</em>  {# Affiche la date de création du message #}
-            </div>
-        {% endfor %}
-    </div>
+{% include "Layout/nav.html.twig" %}
 
-    {# Formulaire pour envoyer un nouveau message #}
-    <form method="post" action="{{ path('app.conversation.send', {'id': conversation.id}) }}">
-        <textarea name="content" required></textarea>  {# Zone de texte pour saisir le message #}
-        <button type="submit">Envoyer</button>  {# Bouton pour envoyer le message #}
-    </form>
+    <h1>Conversation</h1>
+
+    <ul>
+        {% for message in messages %}
+            <li>
+                <strong>{{ message.sender.firstName }}</strong>: {{ message.content }} <em>{{ message.createdAt | date('Y-m-d H:i') }}</em>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Envoyer un nouveau message</h2>
+    {{ form_start(form) }}
+        {{ form_widget(form.content) }}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <button type="submit">Envoyer</button>
+    {{ form_end(form) }}
+
+    <h2>Mandater</h2>
 {% endblock %}

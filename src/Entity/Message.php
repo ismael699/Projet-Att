@@ -14,11 +14,11 @@ class Message
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'messages')]
+    #[ORM\ManyToOne(targetEntity:Conversation::class, inversedBy: 'messages')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Conversation $conversation = null;
 
-    #[ORM\ManyToOne(inversedBy: 'messages')]
+    #[ORM\ManyToOne(targetEntity:User::class, inversedBy: 'messages')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $sender = null;
 
